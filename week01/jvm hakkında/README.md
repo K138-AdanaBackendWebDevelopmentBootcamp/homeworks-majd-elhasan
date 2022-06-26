@@ -47,7 +47,7 @@ Bir lambda ifadesi bir metodda argüman olarak geçirilebilir veya bir değişke
 Yazımı kısadır, anonim sınıflar gibi basmakalıp uzun bir yazımı yoktur.
 Sonuç olarak kodumuzun daha net ve esnek olmasını sağlar. Örneğin lambda ifadesi kullanarak daha kısa bir şekilde özel bir Comparator nesnesi oluşturabilirsiniz.
 
- <span style="color:#ddffdd; font-size: 12pt;">Önce :</span>
+Önce :
 
 ```java
 Comparator<Elma> agirlikOlarak = new Comparator<Elma>() {
@@ -56,7 +56,7 @@ return e1.getAgirlik().compareTo(e2.getAgirlik());
 }
 };
 ```
-``Sonra (lambda ifadesiyle):``
+Sonra (lambda ifadesiyle):
 
 ```java
 Comparator<Elma> agirlikOlarak =
