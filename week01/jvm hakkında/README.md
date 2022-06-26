@@ -1,33 +1,31 @@
-<span style="color:#ff8844; font-size: 20pt;">
-JVM (Java Virtual Machine - Java Sanal Makinesi)
-</span>
-<span style="color:#ffff88; font-size: 8pt;">
-bazı türkçe kaynaklarda <span style="color:#ddff44; font-size: 12pt;">
-JSM
-</span> olarak ifade edilir &nbsp;(Java Sanal Makinesi)
- </span>
 
-<span style="color:#55baf7; font-size: 16pt;"> JVM nedir ve nasıl çalışır</span>
+
+# JVM (Java Virtual Machine - Java Sanal Makinesi)
+
+bazı türkçe kaynaklarda ``JSM`` olarak ifade edilir &nbsp;(Java Sanal Makinesi)
+
+
+ ## JVM nedir ve nasıl çalışır
 
 
 java programları derlendikten sonra bilgisayrın anlayacağı dile dönüştürülür ,
-Buna <span style="color:#aaaa00; font-size: 11pt;">ByteCode</span>
+Buna `ByteCode`
  denir.
  ByteCode ile java programlarının platformdan bağımsız çalışması sağlanır.
- ByteCode bir kere oluşturulur ve her işletim sisteminde çalışır , Buna <span style="color:#aaaa00; font-size: 11pt;">write once run everywhere</span> de denir ,
- Bunu sağlayan yapı <span style="color:#aaaa00; font-size: 11pt;">JVM</span>'dir.<br>
+ ByteCode bir kere oluşturulur ve her işletim sisteminde çalışır , Buna ``write once run everywhere`` de denir ,
+ Bunu sağlayan yapı ``JVM``'dir.<br>
  Java programlarının çalışma mantığını daha detaylı bir şekilde anlatalım.
 
- Java programları sınıflardan oluşur,yazılmış olan sınıfların bulunduğu dosyaların uzantısı  <span style="color:#aaaa00; font-size: 11pt;">*.java*</span> 'dır , Bu  <span style="color:#aaaa00; font-size: 11pt;">*.java*</span> uzantılı dosyalar , Bir derleyici yardımıyla derlenir ve <span style="color:#aaaa00; font-size: 11pt;">ByteCode</span> adı verilen makine kodlarına dönüştürülür. <br>
- Artık bu dosyanın uzantısı <span style="color:#aaaa00; font-size: 11pt;">.class</span> olmuştur. Bu işlem yalnızca bir kez yapılır. Bu <span style="color:#aaaa00; font-size: 11pt;">.class</span> uzantılı Byte Kodlar , JVM yardımıyla her işletim sisteminde çalışır hale gelmiştir.
+ Java programları sınıflardan oluşur,yazılmış olan sınıfların bulunduğu dosyaların uzantısı  *``.java``* 'dır , Bu  *``.java``* uzantılı dosyalar , Bir derleyici yardımıyla derlenir ve ``ByteCode`` adı verilen makine kodlarına dönüştürülür. <br>
+ Artık bu dosyanın uzantısı *``.class``* olmuştur. Bu işlem yalnızca bir kez yapılır. Bu *``.class``* uzantılı Byte Kodlar , JVM yardımıyla her işletim sisteminde çalışır hale gelmiştir.
  JVM , Bu byte kodları adım adım yorumlar , yazılan java programlarının diğer işletim sistemlerinde de çalışabilmesi için o makinede JVM kurulu olması gerekir . Hazır olan byte kodları , O makine üzerinde yorumlayarak işletim sisteminin kullanımına sunar. Böylece byte kodlarıi üzerinde çalıştığı sisteme uygun hale getirir, Günümüzde neredeyse her platform için yazılmış JVM'ler bulunmaktadır.
  ***
-  <span style="color:#55baf7; font-size: 16pt;"> JVM mimarisi</span>
+ ## JVM mimarisi
 
  ![JVM çalışma mantığı](./JVM.png )
 
- *************************
- <span style="color:#55baf7; font-size: 16pt;"> Java 8 ile birlikte gelen JVM mimarisindeki değişiklikler</span>
+ ***
+## Java 8 ile birlikte gelen JVM mimarisindeki değişiklikler
 
  Java platformunun 'Java SE 8' sürümü, 18 Mart 2014'te yayınlandı. <br>
 JDK 8'in [Yeni özellikleri](https://www.oracle.com/java/technologies/javase/8-whats-new.html)nin en yararlı ve ilginç olanları şöyledir : 
@@ -37,7 +35,7 @@ JDK 8'in [Yeni özellikleri](https://www.oracle.com/java/technologies/javase/8-w
 * CompletableFuture İle eşzamansız görev zincirleme
 * Yepyeni Time API
 
-  [<span style="color:#ddffbb; font-size: 16pt;">Lambda ifadeleri</span>](http://omereryilmaz.com/java-lambda-nedir/)
+  [**Lambda ifadeleri**](http://omereryilmaz.com/java-lambda-nedir/)
 
  Java, nesne-yönelimli programlamanın (object-oriented programming)  yazılım geliştirme için temel paradigma olduğu 1990’lı yıllarda nesne-yönelimli  bir programlama dili olarak tasarlanmıştır. Nesne-yönelimli programlamadan çok önce Lisp ve Scheme gibi fonksiyonel programlama dilleri olmasına rağmen akademik çevreler dışında pek rağbet görmemiştir. Son zamanlarda da fonksiyonel programlama önem kazanmıştır çünkü eşzamanlı ve olay güdümlü programlama için bu yöntem çok uygundur. Ama bu, nesne-yönelimli programlamanın kötü olduğu anlamına gelmemektedir. Aksine nesne-yönelimli programlamayla fonksiyonel programlamanın harmanlanması bu konuya daha da işlevsellik kazandırmaktadır. Örneğin programlama dilinin işlevsel ifadeler için uygun bir söz dizimi (syntax) varsa koleksiyon kütüphaneleri güçlü API’ler sunabilir. Java 8 ile gelen temel değişiklik fonksiyonel programlama yapılarının nesne-yönelimli yapının köklerine eklenmesidir [[1]](http://www.drdobbs.com/jvm/lambda-expressions-in-java-8/240166764).
 
@@ -58,7 +56,7 @@ return e1.getAgirlik().compareTo(e2.getAgirlik());
 }
 };
 ```
- <span style="color:#ddffdd; font-size: 12pt;">Sonra (lambda ifadesiyle):</span>
+``Sonra (lambda ifadesiyle):``
 
 ```java
 Comparator<Elma> agirlikOlarak =
@@ -69,7 +67,7 @@ Yukarıdaki kodların her ikisinde de Elma sınıfından üretilen nesnenin ağ�
 ![lambda_ifadesi](./Lambda_ifadesi.jpg)
 Şekil 1. Bir lambda ifadesi parametrelereden, bir ok şeklinden ve bir gövdeden oluşmaktadır.
 
- <span style="color:#ddffdd; font-size: 12pt;">Parametre listeleri :</span>
+ ``Parametre listeleri :``
  Buradaki iki “Elma”nın parametreleri, bir Comporator karşılaştırma metodu ile karşılaştırılır.
 Lambda operatörü : Parametre listesini lambda’nın gövdesinden ayırır.
 Lambda gövdesi : İki “Elma”nın ağırlıkları burada karşılaştırılır. Karşılaştırma sonucu da lambda’nın dönüş değeri olarak düşünülür.
@@ -84,11 +82,11 @@ Veya
 (Parametreler) -> { ifadeler; }
 
 <br>
- <span style="color:#ddffdd; font-size: 12pt;">Lambda örnekleri :</span>
+ ``Lambda örnekleri :``
 
  ![java_lambda_ornek](./java_lambda_ornek.jpg)
 
-&emsp;&emsp;[<span style="color:#ddffbb; font-size: 16pt;">Koleksiyonlarla çalışmak için Stream API</span>](https://bilisim.io/2017/01/29/java-8-stream-api/)
+&emsp;&emsp;[**Koleksiyonlarla çalışmak için Stream API**](https://bilisim.io/2017/01/29/java-8-stream-api/)
 
  Günümüzde büyük verinin işlenmesi açısından, işlerin küçük parçalara ayrılıp paralel işlenmesi önem kazanmıştır. Bu işlemi dağıtık bir şekilde yapan frameworkler yazılmakta ve kullanılmaktadır. Javanın, 8 versiyonu da büyük veri işleme yaklaşımlarını ve sektörün yeni gereksinimi olan büyük işlerin küçük parçalar halinde eş zamanlı işlenmesini karşılamaya çalışmasının bir ürünüdür.  Stream API de bu cevaplardan birini oluşturur.
 
@@ -124,8 +122,7 @@ Stream üzerinde yaptığımız işlemler intermediate ve terminal olmak üzere 
 </span>](https://kodedu.com/2014/11/java-8-completablefuture-ile-asenkron-programlama/)
 
 CompletableFuture sınıfı, Java 8 içerisinde asenkron operasyonlar için özelleştirilen bir sınıftır. Java ortamında Java SE ve Java EE teknolojilerinde bir çok asenkron programlama imkanı halihazırda geliştiricilere sunulmaktadır. CompletableFuture sınıfı ise, asenkron programla ihtiyaçlarına çok daha genel çözümler getirmektedir.
-  <span style="color:#ffaabb; font-size: 14pt;">Syncronous vs. Asyncronous
-</span>
+ ### Syncronous vs. Asyncronous
 
 Eğer bir uygulamanın akışında, bir görevin başlaması diğer görevin bitişine bağlı ise, buna senkron programlama; Eğer bir görevin başlaması diğer görevin başlamasına engel olmuyorsa da asenkron programlama kavramları ortaya çıkmaktadır. Java programlama dili asenkron programlamaya çoğu noktada imkan sağlamakla birlikte, dilin genel yatkınlığı çoğu dil gibi senkron programlama yönündedir. Fakat, örneğin JavaScript gibi bir dili incelediğinizde, asenkronitinin dilin diyaznını ne derece etkilediğini gözlemleyebilirsiniz.
 
@@ -152,8 +149,7 @@ fetchFromDatabase();
 readFiles();
 ```
 Bu iki görevin tamamlanma süresi ne kadar olacak?<br>
-<span style="color:#ffffaa; font-size: 10pt;">cevap:
-</span>
+``cevap:``
 ```java
  Math.sum(5,3) = 8
  ```
@@ -180,8 +176,7 @@ public class CompletableFuture<T> implements Future<T>, CompletionStage<T> {
  ```
  ``CompletableFuture`` ***``runAsync``*** metodu ``Runnable`` türünden bir görev sınıfı kabul etmektedir, arından CompletableFuture türünden bir nesne döndürmektedir. Parametre olarak iletilen Runnable nesnesi, arkaplanda asenkron olarak koşturulmaktadır.
 
-<span style="color:#ffffaa; font-size: 10pt;">NOTE:
-</span>
+**NOTE:**
 <br>
 Runnable arayüzü tek bir soyut metoda sahip olduğu için, Lambda fonksiyonu olarak temsil edilebilir. `() → { }`
 ```java
@@ -204,19 +199,18 @@ futured2.join(); (4)
 Yukarıdaki ``(1)`` ve ``(2)`` numaralı işler bu noktadan sonra arkaplanda ForkJoin thread havuzu içinde koşturulmuş olacak. Böylece ``(2)`` numaralı iş, ``(1)`` numaralı iş koşturulmaya başlatıldıktan hemen sonra çalışmaya başlayacak, diğerinin işe koyulmasını bloke etmeyecek.
 
 Peki şimdi bu iki asenkron görevin tamamlanma süresi ne kadar olacak?
-<span style="color:#ffffaa; font-size: 10pt;"><br>cevap:
-</span>
+<br>
+``cevap:``
 ```java
  Math.max(5,3) = 5
  ```
  Burada iki iş birden hemen hemen aynı anda başlayacağı için, iki işin toplamda tamamlanma süresi yaklaşık olarak en fazla süren görev kadar olacaktır.
 
- <span style="color:#ffffaa; font-size: 10pt;">NOTE:
-</span><br>
+ **NOTE:**
+<br>
 ``CompletableFuture`` ***``join``*** metodu, asenkron olarak koşturulan görev tamamlanana kadar, uygulama akışının mevcut satırda askıda kalmasını sağlar. Yani ``(3)`` ve ``(4)`` satırlarından sonraki satırlarda, yukarıdaki iki işin birden tamamlanmış olduğunu garanti edebiliriz.
 
-  <span style="color:#ffaabb; font-size: 14pt;">CompletableFuture#allOf
-</span>
+  ### CompletableFuture#allOf
 
 Birden fazla CompletableFuture nesnesini birleştirir. Ancak herbir iş birden tamamlandığında, CompletableFuture nesnesi tamamlandı bilgisine sahip olur.
 ```java
@@ -261,9 +255,7 @@ Bir arada iki derede. // 0. saniyede
 Diğer görev tamamlandı.. // 15. saniyede
 Bitti. // 15. saniyede
 ```
-  <span style="color:#ffaabb; font-size: 14pt;">CompletableFuture#anyOf
-</span>
-
+### CompletableFuture#anyOf
 
 Birden fazla CompletableFuture nesnesini birleştirir. Herhangi bir görev tamamlandığında, CompletableFuture nesnesi tamamlandı bilgisine sahip olur.
 örneğin : 
@@ -300,8 +292,7 @@ Bir arada iki derede. // 0. saniyede
 Bitti. // 5. saniyede
 Diğer görev tamamlandı.. // 15. saniyede
 ```
-  <span style="color:#ffaabb; font-size: 14pt;">CompletableFuture#supplyAsync
-</span>
+### CompletableFuture#supplyAsync
 
 ``CompletableFuture`` ***`supplyAsync`*** metodu ``CompletableFuture`` ***``runAsync``*** metodu gibidir. Fakat koşma sonucunda geriye bir sonuç döndürebilmektedir. Bir iş sonunda geriye hesaplanmış bir değer döndürmeye ihtiyaç duyulduğu noktada kullanılabilir.
 
@@ -324,14 +315,13 @@ Diğer görev tamamlandı.. // 15. saniyede
   ```
   Bu ihtiyacı ``Files`` ***``list``*** metodu ile sağlayabiliriz.`` Files`` ***``list``*** metodu tanımlanan dizindeki tüm dizin ve dosyaları bir Path listesi olarak sunmaktadır. Dizindeki dosya ve dizin sayısına göre bir sonucun elde edilmesi belirli bir zaman gerektirebilir.
 
-NOTE
+**NOTE**
 CompletableFuture#supplyAsync metodu Supplier türünden bir nesne kabul ettiği için bir Lambda fonksiyonu olarak temsil edilebilirdir. ``() → T``
 CompletableFuture’in çoğu metodu işlerini asenkron olarak arkaplanda koşturmaktadır. Bu sebeple mevcut uygulamanın akışını askıda bırakmamaktadır.
 
 Bir CompletableFuture’in iş bitimindeki sonucunu elde etmenin iki yöntemi bulunmaktadır.
 
-&emsp;&emsp;&emsp;&emsp;  <span style="color:#00aa22; font-size: 14pt;">İlk yol, ``join()`` metodu kullanmak
-</span>
+#### İlk yol, ``join()`` metodu kullanmak
 
 ``join()`` metodu, asenkron olarak işletilen görev tamamlanana kadar uygulama akışını askıda tutmaktadır. İş tamamlandığında ise varsa sonuç değerini döndürmektedir.
 ```java
@@ -358,8 +348,7 @@ List<Path> liste = future.join(); (1)
 // join() tamamlanana kadar buraya erişim devam etmez
 ```
 
-&emsp;&emsp;&emsp;&emsp;  <span style="color:#00aa22; font-size: 14pt;">İkinci yol, ``thenAccept()`` metodu kullanmak
-</span>
+#### İkinci yol, ``thenAccept()`` metodu kullanmak
 
 ``thenAccept()`` metodu ile *callback* stilinde asenkron işlerin sonuçları elde edilebilir. ``thenAccept`` metodu ``Consumer<T>`` türünden bir nesne kabul etmekte ve sonucu onun üzerinden sunmaktadır.
 
@@ -383,8 +372,7 @@ future.thenAccept( (List<Path> paths) -> {
 ```
 Yukarıdaki ``thenAccept`` ile, ``CompletableFuture`` nesnesine bir hook tanımlanmış olur. İş bitiminde sonuç elde edildiği zaman bu metod otomatik olarak işletilir. Sonuç parametre olarak geliştiriciye sunulur.
 
-  <span style="color:#ffaabb; font-size: 14pt;">CompletableFuture#runAfterBoth
-</span>
+### CompletableFuture#runAfterBoth
 
 İki asenkron iş birden tamamlandığında bir ``Runnable`` türünden nesneyi koşturmayı sağlar.
 ```java
@@ -404,9 +392,7 @@ future1.runAfterBoth(future2,()->{
     System.out.println("İkisi birden bitti"); // 5. saniyede
 });
 ```
-  <span style="color:#ffaabb; font-size: 14pt;">CompletableFuture#runAfterEither
-</span>
-
+### CompletableFuture#runAfterEither
 
 İki asenkron işden herhangi biri tamamlandığında bir ``Runnable`` türünden nesneyi koşturmayı sağlar.
 ```java
@@ -426,8 +412,7 @@ future1.runAfterEither(future2,()->{
     System.out.println("İkisinden biri tamamlandı.."); // 0. saniyede
 });
 ```
-  <span style="color:#ffaabb; font-size: 14pt;">CompletableFuture#handle
-</span>
+### CompletableFuture#handle
 
 ``CompletableFuture`` ***``handleAsync``*** metodu bir önceki asenkron görevin sonucunu işlemek ve ardındaki görevlere paslamak için yapılandırılmıştır. ``CompletableFuture`` ***``handleAsync``*** ile, birbirini besleyen zincirler şeklinde asenkron iş akışları yazılabilir.
 
@@ -479,12 +464,9 @@ for (Map.Entry<Path, Long> entry : map.entrySet()) {
 3. En son üretilen Map nesnesinden dosya yolu ve boyutunu birbir çıktılar.<br>
 ``CompletableFuture`` sınıfının Java’da asenkron programlamayı hiç olmadığı kadar kolaylaştırdığını söyleyebilirim.
 
-  &emsp;&emsp;&emsp;&emsp;[<span style="color:#ddffbb; font-size: 16pt;">Yepyeni Time API
-</span>](https://www.mobilhanem.com/java-8-date-api-ile-gelen-yenilikler/)
+[**Yepyeni Time API**](https://www.mobilhanem.com/java-8-date-api-ile-gelen-yenilikler/)
 
-  <span style="color:#ffaabb; font-size: 14pt;"> Java Date API nedir?
-</span>
-
+ ### Java Date API nedir?
 
 Java 8 ile birlikte gelen bu yenilik ``java.util`` paketi altında yer alan ``Date`` ve ``Time`` sınıflarında bulunan eksiklikleri gidermek ve bazı sorunları ele almak için geliştirildi. Öncelikle var olan kısımda neler vardı ve Java 8 Date Api ile hayatımıza neler girdi, bakalım.
 
@@ -494,8 +476,7 @@ Konumuza dönecek olursak Java 8 ile birlikte gelen ``Date`` ve ``Time`` sınıf
 
 Çoğunlukla en yaygın kullanulan sınıflar ``LocalDate``, ``LocalTime`` ve ``LocalDateTime``’dır. İsimlerinden de anlayacağınız üzere yerel zaman dilimleri hakkında bilgi vermektedir.
 
-  <span style="color:#ffaabb; font-size: 14pt;"> LocalDate ve LocalTime
-</span>
+`` LocalDate ve LocalTime``
 
 Yeni Date Api’yi kullanırken karşılaşacağınız ilk sınıflar ``LocalDate`` ve ``LocalTime`` olacaktır. Başka bir sınıuf olan ``LocalDateTime``, bu iki sınıfın birleşimi olacak düşünülebilir. Bu sınıflar, tutarlı zaman dilimlerine sahip olan dağıtık sistemlerde zamanı temsil etmek için kullanılabilir.
 
