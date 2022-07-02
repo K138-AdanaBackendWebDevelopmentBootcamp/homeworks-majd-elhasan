@@ -1,14 +1,20 @@
-package SchoolManagementSystem;
+package models;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-public abstract class Instructor {
+@Inheritance(strategy = InheritanceType.JOINED) // cause this class is a super class we should annotate it with @Inheritance  // ,We chose the Inheritance type as JOINED to make the classes (or tabled linked with each other)
+@Entity   // annotated by Entity for connect the class with DB
+public class Instructor {  // I'm going to make this class abstract
+    @Id    // the primary key of this object(raw) of the class(table)  // (DB keyword)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)  // to generate anh id automatically added this annotation
+    private int id;
     String name;
     String address;
     long phoneNumber;
-// an SchoolManagementSystem.Instructor should instruct at least one or more courses
+    // an SchoolManagementSystem.Instructor should instruct at least one or more courses
+    @OneToMany
     List<Course> courseList = new ArrayList<>();
 
     public Instructor(){}
@@ -41,24 +47,28 @@ public abstract class Instructor {
         return courseList;
     }
 
-    private void setCourseInstructor(List<Course> courseList){ // to set an instructor to each course in the list
+    private void setCourseInstructor(){ // to set an instructor to each course in the list
         for (Course course: courseList) {
             course.instructor = this;
         }
     }
-    public void setCourseList(List<Course> courseList) {
-        if(courseList.size()>0) this.courseList = courseList; // courseList contains at least one course
-        setCourseInstructor(courseList);
+    public void setCourse(Course... courses) { // course... courses pattern allows us to handle zero or a lot of courses as if we type Course[] courses
+        for(Course course:courses){
+            this.courseList.add(course);
+        }
+        setCourseInstructor();
     }
 
-    public Instructor(String name, String address, long phoneNumber, List<Course> courseList) {
-        if(courseList.size()>0) {
-            this.name = name;
-            this.address = address;
-            this.phoneNumber = phoneNumber;
-            this.courseList = courseList;
-            setCourseInstructor(courseList);
-        }
+    public Instructor(String name, String address, long phoneNumber) {
+        this.name = name;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        setCourseInstructor();
+    }
+
+
+    public int getId() {
+        return id;
     }
 
     @Override
@@ -83,3 +93,4 @@ public abstract class Instructor {
                 '}';
     }
 }
+
