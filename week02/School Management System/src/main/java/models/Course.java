@@ -16,7 +16,7 @@ public class Course {
     @ManyToMany
     List<Student> studentList= new ArrayList<>();  // we have to initialize it to add students later
     @ManyToOne
-    Instructor instructor;    //@JoinColumn(name = "instructor_id")
+    Instructor instructor;    //@JoinColumn(name = "instructor_id")  we can type anything instead of "instructor_id"
 
 
     public Course(String courseName, String courseCode, int creditScore, Instructor instructor) {
@@ -27,7 +27,6 @@ public class Course {
     }
 
     Course(){
-        studentList = new ArrayList<>();
     }
 
     public void setCourseCode(String courseCode) {

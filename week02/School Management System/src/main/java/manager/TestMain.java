@@ -20,7 +20,8 @@ public class TestMain {
             Student newStudent = new Student("sami yusuf",LocalDate.of(1980,7,21),"tahran","male");
             studentController.saveStudent(newStudent);
 
-            saveData();}
+            saveData();
+        }
 
         List<Student> studentList = studentController.findAllStudents();
 
@@ -73,21 +74,7 @@ public class TestMain {
         try {
             em.getTransaction().begin();
             // ...
-            em.persist(course01);
-            em.persist(course02);
-            em.persist(course03);
-            em.persist(course04);
-            em.persist(course05);
-            em.persist(course06);
-
-            em.persist(i1);
-            em.persist(i2);
-            em.persist(i3);
-
             em.persist(s1);
-            em.persist(s2);
-            em.persist(s3);
-            em.persist(s4);
 
             System.out.println("All data are persisted");
 
