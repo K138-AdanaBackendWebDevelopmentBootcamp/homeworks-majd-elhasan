@@ -27,12 +27,12 @@ public class Course {
         return studentList;
     }
 
-    public void setStudent(Student student) {
-        this.studentList.add(student);
-        student.getCourseList().add(this);
+    public void setStudent(Student... students) {
+       for(Student student:students) {
+           this.studentList.add(student);
+           student.getCourseList().add(this);
+       }
     }
-
-
 
     public Course (String courseName , String courseCode , int creditScore){
         this.courseName = courseName;

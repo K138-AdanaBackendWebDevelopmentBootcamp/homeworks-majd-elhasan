@@ -2,11 +2,13 @@ package dev.patika.SchoolManagementSystem03.models;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Instructor {
+// should be abstract
+public class Instructor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -55,8 +57,22 @@ public abstract class Instructor {
             course.setInstructor(this);
         }
     }
+    public void setCourse(Course... courses) { // course... courses pattern allows us to handle zero or a lot of courses as if we type Course[] courses
+        //this.courseList.addAll(Arrays.asList(courses));
+        //or we can use Collections.addAll(this.courseList,courses);
+        //or just in normal for loop
+        outer:
+        for (Course course : courses) {
+            for (Course value : this.courseList) {
+                if (Objects.equals(course.getCourseCode(), value.getCourseCode()))
+                    continue outer;
+            }
+            this.courseList.add(course);
+        }
+        setCourseInstructor(Arrays.asList(courses));
+    }
     public void setCourseList(List<Course> courseList) {
-        if(courseList.size()>0) this.courseList = courseList; // courseList contains at least one course
+        this.courseList = courseList; // courseList contains at least one course
         setCourseInstructor(courseList);
     }
 
@@ -68,6 +84,11 @@ public abstract class Instructor {
             this.courseList = courseList;
             setCourseInstructor(courseList);
         }
+    }
+    public Instructor(String name, String address, long phoneNumber) {
+            this.name = name;
+            this.address = address;
+            this.phoneNumber = phoneNumber;
     }
 
     @Override

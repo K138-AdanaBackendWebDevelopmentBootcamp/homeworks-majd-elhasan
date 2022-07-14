@@ -9,14 +9,14 @@ public class Course {
     @Id    // the primary key of this object(raw) of the class(table)  // (DB keyword)
     @GeneratedValue(strategy = GenerationType.IDENTITY)  // to generate anh id automatically added this annotation
     private int id;
-    String courseName;
-    String courseCode;
-    int creditScore;
+    private String courseName;
+    private String courseCode;
+    private int creditScore;
 
     @ManyToMany
-    List<Student> studentList= new ArrayList<>();  // we have to initialize it to add students later
+    private final List<Student> studentList= new ArrayList<>();  // we have to initialize it to add students later
     @ManyToOne
-    Instructor instructor;    //@JoinColumn(name = "instructor_id")  we can type anything instead of "instructor_id"
+    private Instructor instructor;    //@JoinColumn(name = "instructor_id")  we can type anything instead of "instructor_id"
 
 
     public Course(String courseName, String courseCode, int creditScore, Instructor instructor) {
@@ -24,6 +24,11 @@ public class Course {
         this.courseCode = courseCode;
         this.creditScore = creditScore;
         this.instructor = instructor;
+    }
+    public Course(String courseName, String courseCode, int creditScore) {
+        this.courseName = courseName;
+        this.courseCode = courseCode;
+        this.creditScore = creditScore;
     }
 
     public Course(){
@@ -65,8 +70,11 @@ public class Course {
     public List<Student> getStudentList() {
         return studentList;
     }
-    public void setStudent(Student student){
-        studentList.add(student);
+    public void setStudent(Student... students) {
+        for(Student student:students) {
+            this.studentList.add(student);
+            student.getCourseList().add(this);
+        }
     }
 
     @Override

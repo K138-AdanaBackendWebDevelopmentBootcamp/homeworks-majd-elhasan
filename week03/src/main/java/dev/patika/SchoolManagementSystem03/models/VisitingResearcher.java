@@ -12,10 +12,11 @@ public class VisitingResearcher extends Instructor{
         super(name, address, phoneNumber, courseList);
         this.hourly_salary = hourly_salary;
     }
-
-    public VisitingResearcher() {
-
+    public VisitingResearcher(String name, String address, long phoneNumber, int hourly_salary) {
+        super(name, address, phoneNumber);
+        this.hourly_salary = hourly_salary;
     }
+    public VisitingResearcher() {}
 
     public int getHourly_salary() {
         return hourly_salary;

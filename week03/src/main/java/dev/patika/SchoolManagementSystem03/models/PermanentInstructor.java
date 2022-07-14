@@ -11,10 +11,11 @@ public class PermanentInstructor extends Instructor{
         super(name, address, phoneNumber, courseList);
         this.fixed_salary = fixed_salary;
     }
-
-    public PermanentInstructor() {
-
+    public PermanentInstructor(String name, String address, long phoneNumber, int fixed_salary) {
+        super(name, address, phoneNumber);
+        this.fixed_salary = fixed_salary;
     }
+    public PermanentInstructor() {}
 
 
     public int getFixed_salary() {

@@ -64,7 +64,7 @@ public class Student {
     public void setCourse(Course... courses) {  // when we set a course to a student ,we add that student to the student list of this course
         for (Course course:courses) {
             courseList.add(course);
-            course.studentList.add(this);
+            course.getStudentList().add(this);
         }
     }
 

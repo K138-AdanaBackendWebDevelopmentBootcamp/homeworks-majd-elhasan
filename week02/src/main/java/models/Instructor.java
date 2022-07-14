@@ -48,7 +48,7 @@ public class Instructor {  // I'm going to make this class abstract
 
     private void setCourseInstructor(){ // to set an instructor to each course in the list
         for (Course course: courseList) {
-            course.instructor = this;
+            course.setInstructor(this);
         }
     }
     public void setCourse(Course... courses) { // course... courses pattern allows us to handle zero or a lot of courses as if we type Course[] courses

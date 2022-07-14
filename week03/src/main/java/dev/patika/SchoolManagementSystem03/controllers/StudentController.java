@@ -13,7 +13,6 @@ import java.util.List;
 
 @RestController
 public class StudentController implements IBaseController<Student> {
-
     private final IStudentService<Student> iStudentService;
 
     @Autowired
