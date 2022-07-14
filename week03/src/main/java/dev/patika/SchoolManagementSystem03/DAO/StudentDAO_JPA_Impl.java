@@ -30,7 +30,7 @@ public class StudentDAO_JPA_Impl implements IStudentDAO<Student> {
     }
 
     @Override
-    @Transactional
+    @Transactional  // without @Transactional annotation we can not post an object  ,and we get internal server error 500
     public Student save(Student student){
         checkingObjectExistence(student);
         return entityManager.merge(student);

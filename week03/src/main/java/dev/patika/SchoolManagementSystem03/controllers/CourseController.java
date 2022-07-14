@@ -59,7 +59,7 @@ public class CourseController implements IBaseController<Course> {
 
     @Override
     @PostMapping("/courses")
-    public ResponseEntity<Course> post(Course course) {
+    public ResponseEntity<Course> post(@RequestBody Course course) {
         return new ResponseEntity<>(iCourseService.save(course),HttpStatus.OK);
     }
 

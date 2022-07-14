@@ -55,7 +55,7 @@ public class InstructorController implements IBaseController<Instructor> {
 
     @Override
     @PostMapping("/Instructors")
-    public ResponseEntity<Instructor> post(Instructor instructor) {
+    public ResponseEntity<Instructor> post(@RequestBody Instructor instructor) {
         return new ResponseEntity<>(iInstructorService.save(instructor),HttpStatus.OK);
     }
 }

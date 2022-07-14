@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import java.util.List;
 
-// I'm going to work on this class later...
 @Repository
 public class InstructorDAO_JPA_Impl implements IInstructorDAO<Instructor> {
     private final EntityManager entityManager;
@@ -30,12 +29,14 @@ public class InstructorDAO_JPA_Impl implements IInstructorDAO<Instructor> {
                 .setParameter("idParam",id).getSingleResult();
     }
     @Override
+    @Transactional  // without @Transactional annotation we can not post an object  ,and we get internal server error 500
     public Instructor save(Instructor instructor) {
         checkingObjectExistence(instructor);
         return entityManager.merge(instructor);
     }
 
     @Override
+    @Transactional
     public void deleteById(int id) {
         Instructor foundOne = entityManager.createQuery("From Instructor i WHERE i.id=:idParam",Instructor.class)
                 .setParameter("idParam",id).getSingleResult();
@@ -43,6 +44,7 @@ public class InstructorDAO_JPA_Impl implements IInstructorDAO<Instructor> {
     }
 
     @Override
+    @Transactional
     public void deleteByPhoneNumber(Long phone_number) {
         Instructor foundOne = entityManager.createQuery("From Instructor i WHERE i.phoneNumber=:numberParam",Instructor.class)
                 .setParameter("numberParam",phone_number).getSingleResult();
@@ -50,6 +52,7 @@ public class InstructorDAO_JPA_Impl implements IInstructorDAO<Instructor> {
     }
 
     @Override
+    @Transactional
     public Instructor update(Instructor instructor, int id) {
         Instructor foundOne = entityManager.createQuery("FROM Instructor i WHERE i.id=:idParam ",Instructor.class).setParameter("idParam",id).getSingleResult();
         foundOne.setName(instructor.getName());
@@ -60,6 +63,7 @@ public class InstructorDAO_JPA_Impl implements IInstructorDAO<Instructor> {
     }
 
     @Override
+    @Transactional
     public Instructor updateByPhoneNumber(Instructor instructor, Long phone_number) {
         Instructor foundOne = entityManager.createQuery("FROM Instructor i WHERE i.phoneNumber=:phoneParam ",Instructor.class).setParameter("phoneParam",phone_number).getSingleResult();
         foundOne.setName(instructor.getName());

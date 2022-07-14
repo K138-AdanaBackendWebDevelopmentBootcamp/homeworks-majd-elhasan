@@ -31,23 +31,26 @@ public class CourseDAO_JPA_Impl implements ICourseDAO<Course> {
     }
 
     @Override
-    @Transactional
+    @Transactional  // without @Transactional annotation we can not post an object  ,and we get internal server error 500
     public Course save(Course course){
         checkingObjectExistence(course);
         return entityManager.merge(course);
     }
     @Override
+    @Transactional
     public void deleteById(int id) {
         Course foundOne = entityManager.createQuery("FROM Course c WHERE c.id=:idParam",Course.class).setParameter("idParam",id).getSingleResult();
         entityManager.remove(foundOne);
     }
     @Override
+    @Transactional
     public void deleteByCode(String CourseCode){
         Course foundOne = entityManager.createQuery("FROM Course c WHERE c.courseCode=:CodeParam",Course.class).setParameter("CodeParam",CourseCode).getSingleResult();
         entityManager.remove(foundOne);
     }
 
     @Override
+    @Transactional
     public Course update(Course course,int id) {
         Course foundOne = entityManager.createQuery("FROM Course c WHERE c.id=:idParam ",Course.class).setParameter("idParam",id).getSingleResult();
         foundOne.setCourseName(course.getCourseName());
@@ -57,6 +60,7 @@ public class CourseDAO_JPA_Impl implements ICourseDAO<Course> {
         return entityManager.merge(foundOne);
     }
     @Override
+    @Transactional
     public Course updateByCode(Course course, String code) {
         Course foundOne = entityManager.createQuery("FROM Course c WHERE c.courseCode=:CodeParam ",Course.class).setParameter("CodeParam",code).getSingleResult();
         foundOne.setCourseName(course.getCourseName());

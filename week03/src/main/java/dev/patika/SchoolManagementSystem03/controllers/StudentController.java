@@ -49,7 +49,7 @@ public class StudentController implements IBaseController<Student> {
 
     @Override
     @PostMapping("/students")
-    public ResponseEntity<Student> post(Student student) {
+    public ResponseEntity<Student> post(@RequestBody Student student) {
         return new ResponseEntity<>(iStudentService.save(student),HttpStatus.OK);
     }
 
