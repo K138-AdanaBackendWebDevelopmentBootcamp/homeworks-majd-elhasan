@@ -3,6 +3,7 @@ package dev.patika.SchoolManagementSystem03.services;
 import dev.patika.SchoolManagementSystem03.DAO.Interfaces.IInstructorDAO;
 import dev.patika.SchoolManagementSystem03.models.Instructor;
 import dev.patika.SchoolManagementSystem03.services.Interfaces.IInstructorService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,6 +12,7 @@ public class InstructorServiceImpl implements IInstructorService<Instructor> {
 
     private final IInstructorDAO<Instructor> iInstructorDAO;
 
+    @Autowired
     public InstructorServiceImpl(IInstructorDAO<Instructor> iInstructorDAO) {
         this.iInstructorDAO = iInstructorDAO;
     }

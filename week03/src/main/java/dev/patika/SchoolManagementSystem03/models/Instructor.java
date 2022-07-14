@@ -1,10 +1,8 @@
 package dev.patika.SchoolManagementSystem03.models;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 // should be abstract
@@ -19,11 +17,23 @@ public class Instructor {
     @OneToMany(mappedBy = "instructor")
     List<Course> courseList = new ArrayList<>();
 
-    public int getId() {
-        return id;
-    }
-    public Instructor(){}
 
+    public Instructor(){}
+    public Instructor(String name, String address, long phoneNumber, List<Course> courseList) {
+        if(courseList.size()>0) {
+            this.name = name;
+            this.address = address;
+            this.phoneNumber = phoneNumber;
+            this.courseList = courseList;
+            Course[] inCourseList= new Course[courseList.size()];
+            setCourseInstructor(courseList.toArray(inCourseList));
+        }
+    }
+    public Instructor(String name, String address, long phoneNumber) {
+        this.name = name;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+    }
     public String getName() {
         return name;
     }
@@ -49,10 +59,13 @@ public class Instructor {
     }
 
     public List<Course> getCourseList() {
-        return courseList;
+        return this.courseList;
     }
 
-    private void setCourseInstructor(List<Course> courseList){ // to set an instructor to each course in the list
+    public int getId() {
+        return id;
+    }
+    private void setCourseInstructor(Course... courseList){ // to set an instructor to each course in the list
         for (Course course: courseList) {
             course.setInstructor(this);
         }
@@ -61,6 +74,7 @@ public class Instructor {
         //this.courseList.addAll(Arrays.asList(courses));
         //or we can use Collections.addAll(this.courseList,courses);
         //or just in normal for loop
+        // But we have to check whither the Instructor have a specific course or not,to keep it not duplicated
         outer:
         for (Course course : courses) {
             for (Course value : this.courseList) {
@@ -68,28 +82,17 @@ public class Instructor {
                     continue outer;
             }
             this.courseList.add(course);
+            setCourseInstructor(courses);
         }
-        setCourseInstructor(Arrays.asList(courses));
     }
     public void setCourseList(List<Course> courseList) {
-        this.courseList = courseList; // courseList contains at least one course
-        setCourseInstructor(courseList);
+        this.courseList = courseList;
+        Course[] inCourseList= new Course[courseList.size()];
+        setCourseInstructor(courseList.toArray(inCourseList));
     }
 
-    public Instructor(String name, String address, long phoneNumber, List<Course> courseList) {
-        if(courseList.size()>0) {
-            this.name = name;
-            this.address = address;
-            this.phoneNumber = phoneNumber;
-            this.courseList = courseList;
-            setCourseInstructor(courseList);
-        }
-    }
-    public Instructor(String name, String address, long phoneNumber) {
-            this.name = name;
-            this.address = address;
-            this.phoneNumber = phoneNumber;
-    }
+
+
 
     @Override
     public boolean equals(Object o) {

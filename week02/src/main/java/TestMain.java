@@ -11,7 +11,7 @@ public class TestMain {
         StudentController studentController = new StudentController();
 
         System.out.println("Started...");
-        if(checkData() == 0){
+        if(checkData() >= 0){
 
             // save
 

@@ -8,16 +8,32 @@ import java.util.*;
 public class Instructor {  // I'm going to make this class abstract
     @Id    // the primary key of this object(raw) of the class(table)  // (DB keyword)
     @GeneratedValue(strategy = GenerationType.IDENTITY)  // to generate anh id automatically added this annotation
+    //@Column(name = "instructor_id")
     private int id;
     String name;
     String address;
     long phoneNumber;
     // an SchoolManagementSystem.Instructor should instruct at least one or more courses
-    @OneToMany
+    @OneToMany(mappedBy = "instructor")
     List<Course> courseList = new ArrayList<>();
 
     public Instructor(){}
 
+    public Instructor(String name, String address, long phoneNumber, List<Course> courseList) {
+        if(courseList.size()>0) {
+            this.name = name;
+            this.address = address;
+            this.phoneNumber = phoneNumber;
+            this.courseList = courseList;
+            Course[] inCourseList= new Course[courseList.size()];
+            setCourseInstructor(courseList.toArray(inCourseList));
+        }
+    }
+    public Instructor(String name, String address, long phoneNumber) {
+        this.name = name;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+    }
     public String getName() {
         return name;
     }
@@ -43,32 +59,40 @@ public class Instructor {  // I'm going to make this class abstract
     }
 
     public List<Course> getCourseList() {
-        return courseList;
+        return this.courseList;
     }
 
-    private void setCourseInstructor(){ // to set an instructor to each course in the list
+    public int getId() {
+        return id;
+    }
+
+    private void setCourseInstructor(Course... courseList){ // to set an instructor to each course in the list
         for (Course course: courseList) {
             course.setInstructor(this);
         }
     }
     public void setCourse(Course... courses) { // course... courses pattern allows us to handle zero or a lot of courses as if we type Course[] courses
-        this.courseList.addAll(Arrays.asList(courses));
+        //this.courseList.addAll(Arrays.asList(courses));
         //or we can use Collections.addAll(this.courseList,courses);
         // or for loop to do that
-        setCourseInstructor();
+        // But we have to check whither the Instructor have a specific course or not,to keep it not duplicated
+        outer:
+        for (Course course : courses) {
+            for (Course value : this.courseList) {
+                if (Objects.equals(course.getCourseCode(), value.getCourseCode()))
+                    continue outer;
+            }
+            this.courseList.add(course);
+            course.setInstructor(this);
+        }
     }
 
-    public Instructor(String name, String address, long phoneNumber) {
-        this.name = name;
-        this.address = address;
-        this.phoneNumber = phoneNumber;
-        setCourseInstructor();
+    public void setCourseList(List<Course> courseList) {
+        this.courseList = courseList;
+        Course[] inCourseList= new Course[courseList.size()];
+        setCourseInstructor(courseList.toArray(inCourseList));
     }
 
-
-    public int getId() {
-        return id;
-    }
 
     @Override
     public boolean equals(Object o) {

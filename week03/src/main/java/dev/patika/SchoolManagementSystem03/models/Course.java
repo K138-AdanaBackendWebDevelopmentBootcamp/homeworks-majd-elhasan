@@ -8,6 +8,7 @@ import java.util.Objects;
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "course_id")
     private int id;
 
     private String courseName;
@@ -19,20 +20,7 @@ public class Course {
     @ManyToMany
     private List<Student> studentList;
 
-    public void setStudentList(List<Student> studentList) {
-        this.studentList = studentList;
-    }
 
-    public List<Student> getStudentList() {
-        return studentList;
-    }
-
-    public void setStudent(Student... students) {
-       for(Student student:students) {
-           this.studentList.add(student);
-           student.getCourseList().add(this);
-       }
-    }
 
     public Course (String courseName , String courseCode , int creditScore){
         this.courseName = courseName;
@@ -49,6 +37,21 @@ public class Course {
 
     public Course() {
 
+    }
+
+    public void setStudentList(List<Student> studentList) {
+        this.studentList = studentList;
+    }
+
+    public List<Student> getStudentList() {
+        return this.studentList;
+    }
+
+    public void setStudent(Student... students) {
+        for(Student student:students) {
+            this.studentList.add(student);
+            student.getCourseList().add(this);
+        }
     }
 
     public void setCourseCode(String courseCode) {

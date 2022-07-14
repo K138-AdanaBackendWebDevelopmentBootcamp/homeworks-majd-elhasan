@@ -6,7 +6,7 @@
     <persistence-unit name="mysqlPU" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <properties>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/school_db?characterEncoding=UTF8&amp;useTimezone=true&amp;serverTimezone=UTC" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/oopschool?characterEncoding=UTF8&amp;useTimezone=true&amp;serverTimezone=UTC" />
             <property name="javax.persistence.jdbc.user" value="root" />
             <property name="javax.persistence.jdbc.password" value="mysql0795majd" />
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />

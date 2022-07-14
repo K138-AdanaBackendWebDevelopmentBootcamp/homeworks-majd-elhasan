@@ -2,21 +2,23 @@ package models;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 @Entity   // annotated by Entity for connect the class with DB
 public class Course {
     @Id    // the primary key of this object(raw) of the class(table)  // (DB keyword)
     @GeneratedValue(strategy = GenerationType.IDENTITY)  // to generate anh id automatically added this annotation
+    @Column(name = "course_id")
     private int id;
     private String courseName;
     private String courseCode;
     private int creditScore;
-
-    @ManyToMany
-    private final List<Student> studentList= new ArrayList<>();  // we have to initialize it to add students later
     @ManyToOne
     private Instructor instructor;    //@JoinColumn(name = "instructor_id")  we can type anything instead of "instructor_id"
+
+    @ManyToMany
+    private List<Student> studentList=new ArrayList<>();  //do we have to initialize it to add students later?
 
 
     public Course(String courseName, String courseCode, int creditScore, Instructor instructor) {
@@ -32,6 +34,18 @@ public class Course {
     }
 
     public Course(){
+    }
+
+    public void setStudentList(List<Student> studentList) {
+        this.studentList = studentList;
+    }
+    public List<Student> getStudentList() {
+        return this.studentList;
+    }
+    public void setStudent(Student... students) {
+        Collections.addAll(this.studentList,students);
+        for(Student student:students)
+            student.getCourseList().add(this);
     }
 
     public void setCourseCode(String courseCode) {
@@ -67,15 +81,7 @@ public class Course {
         return id;
     }
 
-    public List<Student> getStudentList() {
-        return studentList;
-    }
-    public void setStudent(Student... students) {
-        for(Student student:students) {
-            this.studentList.add(student);
-            student.getCourseList().add(this);
-        }
-    }
+
 
     @Override
     public String toString() {
