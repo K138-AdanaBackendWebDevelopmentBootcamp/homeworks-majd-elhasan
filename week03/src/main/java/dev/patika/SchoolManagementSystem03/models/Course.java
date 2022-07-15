@@ -1,6 +1,8 @@
 package dev.patika.SchoolManagementSystem03.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -8,7 +10,6 @@ import java.util.Objects;
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "course_id")
     private int id;
 
     private String courseName;
@@ -16,9 +17,11 @@ public class Course {
     private int creditScore;
 
     @ManyToOne
+    @JsonIgnore  // I used JsonIgnore to not show up the instructor entity inside Course entity ,to avoid the StackOverFlow error whereas we have a nested structure between the Instructor and the Course entity
     private Instructor instructor;
+
     @ManyToMany
-    private List<Student> studentList;
+    private List<Student> studentList = new ArrayList<>();
 
 
 

@@ -1,5 +1,7 @@
 package dev.patika.SchoolManagementSystem03.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.*;
 
@@ -78,7 +80,7 @@ public class Instructor {
         outer:
         for (Course course : courses) {
             for (Course value : this.courseList) {
-                if (Objects.equals(course.getCourseCode(), value.getCourseCode()))
+                if (Objects.equals(course, value))
                     continue outer;
             }
             this.courseList.add(course);

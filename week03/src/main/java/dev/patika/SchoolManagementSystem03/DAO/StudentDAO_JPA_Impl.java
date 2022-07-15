@@ -3,7 +3,6 @@ package dev.patika.SchoolManagementSystem03.DAO;
 import dev.patika.SchoolManagementSystem03.DAO.Interfaces.IStudentDAO;
 import dev.patika.SchoolManagementSystem03.Exceptions.AlreadyExistsException;
 import dev.patika.SchoolManagementSystem03.models.Student;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
@@ -58,7 +57,7 @@ public class StudentDAO_JPA_Impl implements IStudentDAO<Student> {
          * Here we set the instance variables of the given student instance to the new instantiated student object which has the given ID.
          * to do some comparison
          */
-        checkingObjectExistence(student);
+        //checkingObjectExistence(student);
         return entityManager.merge(foundStudent);
 
     }

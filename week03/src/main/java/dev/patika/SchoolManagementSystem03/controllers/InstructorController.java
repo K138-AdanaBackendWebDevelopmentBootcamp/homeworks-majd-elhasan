@@ -19,42 +19,42 @@ public class InstructorController implements IBaseController<Instructor> {
     }
 
     @Override
-    @GetMapping("/Instructors")
+    @GetMapping("/instructors")
     @Transactional(readOnly = true)
     public ResponseEntity<List<Instructor>> getAll() {
         return new ResponseEntity<>(iInstructorService.findAll(), HttpStatus.OK);    }
 
     @Override
-    @GetMapping("/Instructors/{id}")
+    @GetMapping("/instructors/{id}")
     @Transactional(readOnly = true)
     public ResponseEntity<Instructor> get(@PathVariable int id) {
         return new ResponseEntity<>(iInstructorService.findById(id),HttpStatus.OK);
     }
 
     @Override
-    @PutMapping("/Instructors/{id}")
+    @PutMapping("/instructors/{id}")
     public ResponseEntity<Instructor> update(@PathVariable int id,@RequestBody Instructor instructor) {
         return new ResponseEntity<>(iInstructorService.update(instructor,id),HttpStatus.OK);
     }
-    @PutMapping("/Instructors/{phone_number}")
+    @PutMapping("/instructors/{phone_number}")
     public ResponseEntity<Instructor> update(@PathVariable long phone_number,@RequestBody Instructor instructor) {
         return new ResponseEntity<>(iInstructorService.updateByPhoneNumber(instructor,phone_number),HttpStatus.OK);
     }
 
     @Override
-    @DeleteMapping("/Instructors/{id}")
+    @DeleteMapping("/instructors/{id}")
     public ResponseEntity<String> delete(@PathVariable int id) {
         iInstructorService.deleteById(id);
         return new ResponseEntity<>("the instructor with id : "+id+" is deleted successfully",HttpStatus.OK);
     }
-    @DeleteMapping("/Instructors/{phone_number}")
+    @DeleteMapping("/instructors/{phone_number}")
     public ResponseEntity<String> deleteByPhoneNumber(@PathVariable Long phone_number){
         iInstructorService.deleteByPhoneNumber(phone_number);
         return new ResponseEntity<>("the instructor with the phone_number "+phone_number+" is deleted successfully",HttpStatus.OK);
     }
 
     @Override
-    @PostMapping("/Instructors")
+    @PostMapping("/instructors")
     public ResponseEntity<Instructor> post(@RequestBody Instructor instructor) {
         return new ResponseEntity<>(iInstructorService.save(instructor),HttpStatus.OK);
     }

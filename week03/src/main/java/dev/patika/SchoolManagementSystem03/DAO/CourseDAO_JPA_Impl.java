@@ -26,6 +26,7 @@ public class CourseDAO_JPA_Impl implements ICourseDAO<Course> {
     @Override
     @Transactional(readOnly = true)
     public Course findById(int id) {
+
         return (Course) entityManager.createQuery("FROM Course c WHERE c.id =:idParam")
                 .setParameter("idParam",id).getSingleResult();
     }
