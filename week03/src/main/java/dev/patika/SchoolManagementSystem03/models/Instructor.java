@@ -1,23 +1,24 @@
 package dev.patika.SchoolManagementSystem03.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import java.util.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
 // should be abstract
 public class Instructor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    String name;
-    String address;
-    long phoneNumber;
+    protected int id;
+    protected String name;
+    protected String address;
+    protected long phoneNumber;
     // an Instructor should instruct at least one or more courses
     @OneToMany(mappedBy = "instructor")
-    List<Course> courseList = new ArrayList<>();
+    protected List<Course> courseList = new ArrayList<>();
 
 
     public Instructor(){}

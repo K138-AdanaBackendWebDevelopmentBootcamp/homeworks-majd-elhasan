@@ -1,12 +1,15 @@
 package dev.patika.SchoolManagementSystem03.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,11 +19,13 @@ public class Course {
     private String courseCode;
     private int creditScore;
 
-    @ManyToOne
-    @JsonIgnore  // I used JsonIgnore to not show up the instructor entity inside Course entity ,to avoid the StackOverFlow error whereas we have a nested structure between the Instructor and the Course entity
+    @ManyToOne(cascade=CascadeType.ALL)
+    //@JsonIgnore  // we can use JsonIgnore to not show up the instructor entity inside Course entity ,to avoid the StackOverFlow error whereas we have a nested structure between the Instructor and the Course entity
+    // if we don't use @JsonIdentityInfo annotation
     private Instructor instructor;
 
     @ManyToMany
+
     private List<Student> studentList = new ArrayList<>();
 
 
@@ -78,8 +83,18 @@ public class Course {
         return creditScore;
     }
 
+    //@JsonIgnore
     public Instructor getInstructor() {
-        return instructor;
+        //Instructor local_instructor=new Instructor();
+        //List<Course> otherCourses = new ArrayList<>();
+        //        for(Course course : this.instructor.courseList){
+        //            if(!course.equals(this)) {
+        //                //otherCourses.add(this);
+        //            }
+        //        }
+        //local_instructor.setCourseList(null);
+        //return local_instructor;
+        return this.instructor;
     }
 
     public void setInstructor(Instructor instructor) {
