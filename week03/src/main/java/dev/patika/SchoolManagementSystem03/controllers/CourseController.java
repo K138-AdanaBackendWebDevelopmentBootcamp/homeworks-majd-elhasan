@@ -30,13 +30,13 @@ public class CourseController implements IBaseController<Course> {
     @Override
     @GetMapping("/courses/{id}")
     @Transactional(readOnly = true)
-    public ResponseEntity<Course> get(@PathVariable int id) {
+    public ResponseEntity<Course> getById(@PathVariable int id) {
         return new ResponseEntity<>(iCourseService.findById(id),HttpStatus.OK);
     }
 
     @Override
     @PutMapping("/courses/{id}")
-    public ResponseEntity<Course> update(@PathVariable int id,@RequestBody Course course) {
+    public ResponseEntity<Course> updateById(@RequestBody Course course,@PathVariable int id) {
         return new ResponseEntity<>(iCourseService.update(course,id),HttpStatus.OK);
     }
     @PutMapping("/courses/{code}")
@@ -47,7 +47,7 @@ public class CourseController implements IBaseController<Course> {
 
     @Override
     @DeleteMapping("/courses/{id}")
-    public ResponseEntity<String> delete(@PathVariable int id) {
+    public ResponseEntity<String> deleteById(@PathVariable int id) {
         iCourseService.deleteById(id);
         return new ResponseEntity<>("the course with id : "+id+" is deleted successfully",HttpStatus.OK);
     }

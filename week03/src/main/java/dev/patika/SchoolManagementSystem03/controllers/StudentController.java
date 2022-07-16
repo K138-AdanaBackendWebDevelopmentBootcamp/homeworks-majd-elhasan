@@ -30,19 +30,19 @@ public class StudentController implements IBaseController<Student> {
     @Override
     @GetMapping("/students/{id}")
     @Transactional(readOnly = true)
-    public ResponseEntity<Student> get(@PathVariable int id) {
+    public ResponseEntity<Student> getById(@PathVariable int id) {
         return new ResponseEntity<>(iStudentService.findById(id), HttpStatus.OK);
     }
 
     @Override
     @PutMapping("/students/{id}")
-    public ResponseEntity<Student> update(@PathVariable int id,@RequestBody Student student) {
+    public ResponseEntity<Student> updateById(@RequestBody Student student,@PathVariable int id) {
         return new ResponseEntity<>(iStudentService.update(student,id),HttpStatus.OK);
     }
 
     @Override
     @DeleteMapping("/students/{id}")
-    public ResponseEntity<String> delete(@PathVariable int id) {
+    public ResponseEntity<String> deleteById(@PathVariable int id) {
         iStudentService.deleteById(id);
         return new ResponseEntity<>("the student with id : "+id+" is deleted successfully",HttpStatus.OK);
     }

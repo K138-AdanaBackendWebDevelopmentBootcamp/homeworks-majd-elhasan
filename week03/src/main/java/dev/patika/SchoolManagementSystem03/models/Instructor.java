@@ -8,8 +8,7 @@ import java.util.*;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
-// should be abstract
-public class Instructor {
+public abstract class Instructor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected int id;
