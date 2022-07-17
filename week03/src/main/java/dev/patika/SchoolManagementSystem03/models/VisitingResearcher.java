@@ -5,13 +5,9 @@ import java.util.List;
 import java.util.Objects;
 @Entity
 public class VisitingResearcher extends Instructor{
+    // we don't have to create an ID to this entity because It will use the inherited one.
     int hourly_salary;
 
-
-    public VisitingResearcher(String name, String address, long phoneNumber, List<Course> courseList, int hourly_salary) {
-        super(name, address, phoneNumber, courseList);
-        this.hourly_salary = hourly_salary;
-    }
     public VisitingResearcher(String name, String address, long phoneNumber, int hourly_salary) {
         super(name, address, phoneNumber);
         this.hourly_salary = hourly_salary;

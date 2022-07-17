@@ -1,3 +1,9 @@
+// -1- the Request journey start from here -controller layer-
+// -2- and then It's gonna to go to the -service layer-
+//--------------------------------------------------------------
+// (3) and then It's gonna to go to DAO layer               ↓
+//--------------------------------------------------------------
+// -4- over there It will be handled by entity manager which is controlled by Spring boot.
 package dev.patika.SchoolManagementSystem03.DAO;
 
 import dev.patika.SchoolManagementSystem03.DAO.Interfaces.IStudentDAO;
@@ -7,12 +13,17 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import java.util.List;
+//@Repository’s job is to catch persistence-specific exceptions and re-throw them as one of Spring’s unified unchecked exceptions.
 
 @Repository
 public class StudentDAO_JPA_Impl implements IStudentDAO<Student> {
 
     private final EntityManager entityManager;
-
+    // we make an instance of EntityManager to have it injected to this object by the constructor (constructor injection) ---HERE WE ARE TALKING ABOUT THE "DI" DEPENDENCY INJECTION---
+    // DI types: Dependency Injection types
+    // field injection
+    // setter injection
+    // constructor injection
     public StudentDAO_JPA_Impl(EntityManager entityManager){
         this.entityManager = entityManager;
     }
@@ -57,7 +68,6 @@ public class StudentDAO_JPA_Impl implements IStudentDAO<Student> {
          * Here we set the instance variables of the given student instance to the new instantiated student object which has the given ID.
          * to do some comparison
          */
-        //checkingObjectExistence(student);
         return entityManager.merge(foundStudent);
 
     }

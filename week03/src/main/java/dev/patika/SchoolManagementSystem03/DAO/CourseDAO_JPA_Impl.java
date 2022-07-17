@@ -1,3 +1,9 @@
+// -1- the Request journey start from here -controller layer-
+// -2- and then It's gonna to go to the -service layer-
+//--------------------------------------------------------------
+// (3) and then It's gonna to go to DAO layer               ↓
+//--------------------------------------------------------------
+// -4- over there It will be handled by entity manager which is controlled by Spring boot.
 package dev.patika.SchoolManagementSystem03.DAO;
 
 import dev.patika.SchoolManagementSystem03.DAO.Interfaces.ICourseDAO;
@@ -8,11 +14,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.List;
-// I'm going to work on this class later...
+//@Repository’s job is to catch persistence-specific exceptions and re-throw them as one of Spring’s unified unchecked exceptions.
 @Repository
 public class CourseDAO_JPA_Impl implements ICourseDAO<Course> {
     private final EntityManager entityManager;
-
+    // we make an instance of EntityManager to have it injected to this object by the constructor (constructor injection) ---HERE WE ARE TALKING ABOUT THE "DI" DEPENDENCY INJECTION---
+    // DI types: Dependency Injection types
+    // field injection
+    // setter injection
+    // constructor injection
     public CourseDAO_JPA_Impl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
@@ -26,10 +36,10 @@ public class CourseDAO_JPA_Impl implements ICourseDAO<Course> {
     @Override
     @Transactional(readOnly = true)
     public Course findById(int id) {
-
         return (Course) entityManager.createQuery("FROM Course c WHERE c.id =:idParam")
                 .setParameter("idParam",id).getSingleResult();
     }
+    // in the method above set the course ID to idParam SYNTAX:" FROM Object o WHERE o.id=:SOMETHING_AS_PARAMETER" and then we call setParameter method inside it ("SOMETHING_AS_PARAMETER",id)
 
     @Override
     @Transactional  // without @Transactional annotation we can not post an object  ,and we get internal server error 500

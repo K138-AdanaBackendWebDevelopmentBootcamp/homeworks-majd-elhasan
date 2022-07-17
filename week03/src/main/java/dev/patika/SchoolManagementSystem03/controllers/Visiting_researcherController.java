@@ -1,3 +1,9 @@
+//--------------------------------------------------------------
+// (1) the Request journey start from here -controller layer-  ↓
+//--------------------------------------------------------------
+// -2- and then It's gonna to go to the -service layer-
+// -3- and then It's gonna to go to DAO layer
+// -4- over there It will be handled by entity manager which is controlled by Spring boot.
 package dev.patika.SchoolManagementSystem03.controllers;
 
 import dev.patika.SchoolManagementSystem03.controllers.Interface.IInstructorController;
@@ -9,12 +15,19 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+//@RestController annotation
+// Spring 4.0 introduced the @RestController annotation in order to simplify the creation of RESTful web services.
+// It's a convenient annotation that combines @Controller and @ResponseBody,
+// which eliminates the need to annotate every request handling method of the controller class with the @ResponseBody annotation.
 @RestController
 public class Visiting_researcherController implements IInstructorController<VisitingResearcher> {
 
     private final IInstructorService<VisitingResearcher> i_researcherService;
-
+    // we make an instance of IInstructorService<VisitingResearcher> to have it injected to this object by the constructor (constructor injection) ---HERE WE ARE TALKING ABOUT THE "DI" DEPENDENCY INJECTION---
+    // DI types: Dependency Injection types
+    // field injection
+    // setter injection
+    // constructor injection
     public Visiting_researcherController(IInstructorService<VisitingResearcher> i_researcherService) {
         this.i_researcherService = i_researcherService;
     }

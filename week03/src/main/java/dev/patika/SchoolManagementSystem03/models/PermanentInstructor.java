@@ -1,16 +1,12 @@
 package dev.patika.SchoolManagementSystem03.models;
 
 import javax.persistence.Entity;
-import java.util.List;
 import java.util.Objects;
 @Entity
 public class PermanentInstructor extends Instructor{
+    // we don't have to create an ID to this entity because It will use the inherited one.
     int fixed_salary;
 
-    public PermanentInstructor(String name, String address, long phoneNumber, List<Course> courseList, int fixed_salary) {
-        super(name, address, phoneNumber, courseList);
-        this.fixed_salary = fixed_salary;
-    }
     public PermanentInstructor(String name, String address, long phoneNumber, int fixed_salary) {
         super(name, address, phoneNumber);
         this.fixed_salary = fixed_salary;

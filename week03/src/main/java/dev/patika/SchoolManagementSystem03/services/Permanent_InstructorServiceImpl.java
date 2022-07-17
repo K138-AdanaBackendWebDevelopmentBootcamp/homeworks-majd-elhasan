@@ -1,3 +1,9 @@
+// -1- the Request journey start from here -controller layer-
+//--------------------------------------------------------------
+// (2) and then It's gonna to go to the -service layer-     ↓
+//--------------------------------------------------------------
+// -3- and then It's gonna to go to DAO layer
+// -4- over there It will be handled by entity manager which is controlled by Spring boot.
 package dev.patika.SchoolManagementSystem03.services;
 
 import dev.patika.SchoolManagementSystem03.DAO.Interfaces.IInstructorDAO;
@@ -6,51 +12,56 @@ import dev.patika.SchoolManagementSystem03.services.Interfaces.IInstructorServic
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+// We mark beans with @Service to indicate that they're holding the business logic. Besides, being used in the service layer, there Isn't any other special use for this annotation.
 @Service
 public class Permanent_InstructorServiceImpl implements IInstructorService<PermanentInstructor> {
-    private final IInstructorDAO<PermanentInstructor> iinstructorDAO;
-
-    public Permanent_InstructorServiceImpl(IInstructorDAO<PermanentInstructor> iinstructorDAO) {
-        this.iinstructorDAO = iinstructorDAO;
+    private final IInstructorDAO<PermanentInstructor> i_instructorDAO;
+    // we make an instance of IInstructorDAO<PermanentInstructor> to have it injected to this object by the constructor (constructor injection) ---HERE WE ARE TALKING ABOUT THE "DI" DEPENDENCY INJECTION---
+    // DI types: Dependency Injection types
+    // field injection
+    // setter injection
+    // constructor injection
+    public Permanent_InstructorServiceImpl(IInstructorDAO<PermanentInstructor> i_instructorDAO) {
+        this.i_instructorDAO = i_instructorDAO;
     }
 
     @Override
     public PermanentInstructor findByPhoneNumber(Long phone_number) {
-        return iinstructorDAO.findByPhoneNumber(phone_number);
+        return i_instructorDAO.findByPhoneNumber(phone_number);
     }
 
     @Override
     public void deleteByPhoneNumber(Long phone_number) {
-        iinstructorDAO.deleteByPhoneNumber(phone_number);
+        i_instructorDAO.deleteByPhoneNumber(phone_number);
     }
 
     @Override
     public PermanentInstructor updateByPhoneNumber(PermanentInstructor instructor, Long phone_number) {
-        return iinstructorDAO.updateByPhoneNumber(instructor,phone_number);
+        return i_instructorDAO.updateByPhoneNumber(instructor,phone_number);
     }
 
     @Override
     public List<PermanentInstructor> findAll() {
-        return iinstructorDAO.findAll();
+        return i_instructorDAO.findAll();
     }
 
     @Override
     public PermanentInstructor findById(int id) {
-        return iinstructorDAO.findById(id);
+        return i_instructorDAO.findById(id);
     }
 
     @Override
     public PermanentInstructor save(PermanentInstructor instructor) {
-        return iinstructorDAO.save(instructor);
+        return i_instructorDAO.save(instructor);
     }
 
     @Override
     public void deleteById(int id) {
-        iinstructorDAO.deleteById(id);
+        i_instructorDAO.deleteById(id);
     }
 
     @Override
     public PermanentInstructor update(PermanentInstructor instructor, int id) {
-        return iinstructorDAO.update(instructor,id);
+        return i_instructorDAO.update(instructor,id);
     }
 }

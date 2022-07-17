@@ -11,6 +11,9 @@ import java.util.Objects;
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
 public class Student {
+    //by this @Id annotation spring boot will generate an id to be the primary Key of the object(entity) in the database
+    // and By the annotation @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // we can specify GenerationType 'TABLE','SEQUENCE','IDENTITY',and we can leave the selection to spring boot by making the type 'AUTO'.
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -18,7 +21,8 @@ public class Student {
     private LocalDate birth_date;
     private String address;
     private String gender;
-
+    //@ManyToMany annotation links this entity which is (STUDENT) with the entity defined in down field in this situation 'List<Course>' in the database
+    // -- so we have MANY of STUDENTS linked to MANY of COURSES as 'List<Course>'.
     @ManyToMany(mappedBy = "studentList",cascade = CascadeType.ALL)
     private List<Course> CourseList = new ArrayList<>();
 
@@ -26,9 +30,13 @@ public class Student {
         return id;
     }
 
+    public Student() {}
 
-    public Student() {
-
+    public Student(String name, LocalDate birth_date, String address, String gender) {
+        this.name = name;
+        this.birth_date = birth_date;
+        this.address = address;
+        this.gender = gender;
     }
 
     public String getName() {
@@ -71,14 +79,6 @@ public class Student {
         CourseList = courseList;
     }
 
-
-
-    public Student(String name, LocalDate birth_date, String address, String gender) {
-        this.name = name;
-        this.birth_date = birth_date;
-        this.address = address;
-        this.gender = gender;
-    }
 
     @Override
     public boolean equals(Object o) {

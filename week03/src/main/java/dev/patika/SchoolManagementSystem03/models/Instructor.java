@@ -9,13 +9,15 @@ import java.util.*;
 @Inheritance(strategy = InheritanceType.JOINED)
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
 public abstract class Instructor {
+    //by this @Id annotation spring boot will generate an id to be the primary Key of the object(entity) in the database
+    // and By the annotation @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // we can specify GenerationType 'TABLE','SEQUENCE','IDENTITY',and we can leave the selection to spring boot by making the type 'AUTO'.
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected int id;
     protected String name;
     protected String address;
     protected long phoneNumber;
-    // an Instructor should instruct at least one or more courses
     @OneToMany(mappedBy = "instructor")
     protected List<Course> courseList = new ArrayList<>();
 
@@ -77,7 +79,7 @@ public abstract class Instructor {
         //or we can use Collections.addAll(this.courseList,courses);
         //or just in normal for loop
         // But we have to check whither the Instructor have a specific course or not,to keep it not duplicated
-        outer:
+        /*outer:
         for (Course course : courses) {
             for (Course value : this.courseList) {
                 if (Objects.equals(course, value))
@@ -85,7 +87,9 @@ public abstract class Instructor {
             }
             this.courseList.add(course);
             setCourseInstructor(courses);
-        }
+        }*/
+        // the method above didn't work.
+        //  instead I used @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
     }
     public void setCourseList(List<Course> courseList) {
         this.courseList = courseList;
