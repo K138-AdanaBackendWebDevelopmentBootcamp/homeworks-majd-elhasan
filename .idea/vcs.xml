@@ -2,8 +2,5 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/CreditApplicationSystem" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/data-ui-app_demo" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/week04-DTO-concept" vcs="Git" />
   </component>
 </project>
