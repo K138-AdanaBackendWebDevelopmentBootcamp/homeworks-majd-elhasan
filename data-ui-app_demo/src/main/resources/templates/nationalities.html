@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="webjars/bootstrap/5.1.3/css/bootstrap.css" rel="stylesheet">
+    <script type="text/javascript" src="webjars/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="webjars/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/main.js}" ></script>
+    <title>Nationalities</title>
+</head>
+<body>
+<h2>List of nationalities</h2>
+
+
+<div class="container">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_Modal" data-bs-whatever="@fat">add new</button>
+<table class="table table-striped">
+    <tr class="" style="background-color:#25C4E3;">
+        <td>Id</td>
+        <td>Name</td>
+        <td>Capital</td>
+        <td>Updated by</td>
+        <td>updated on</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr th:each="n : ${nationalities}">
+        <td th:text="${n.id}"></td>
+        <td th:text="${n.name}"></td>
+        <td th:text="${n.capital}"></td>
+        <td th:text="${n.updatedBy}"></td>
+        <td th:text="${n.updatedOn}"></td>
+        <td><a th:href="@{/nationalityById/(id=${n.id})}" class="btn btn-warning edit-btn">Edit</a></td>
+        <td><a th:href="@{/delete/(id=${n.id})}"  class="btn btn-danger" id="delete-btn">Delete</a></td>
+    </tr>
+</table>
+</div>
+<!-- save modal starts here -->
+<div class="modal fade" id="add_Modal" tabindex="-1" aria-labelledby="saveModalLabel" aria-hidden="true">
+    <form th:action="@{/save}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="saveModalLabel">New Nationality</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="nameAdd" class="col-form-label">Name:</label>
+                        <input type="text" class="form-control" id="nameAdd" name="name">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="capitalAdd" class="col-form-label">Capital:</label>
+                        <input type="text" class="form-control" id="capitalAdd" name="capital">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="updatedByAdd" class="col-form-label">Updated By:</label>
+                        <input type="text" class="form-control" id="updatedByAdd" name="updatedBy">
+                    </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+    </form>
+</div>
+<!--save modal ends here -->
+<!-- edit modal starts here -->
+<div class="modal fade" id="edit_Modal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <form th:action="@{/update}" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Edit Nationality</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3" hidden="hidden">
+                        <label for="idEdit" class="col-form-label" >Name:</label>
+                        <input type="text" class="form-control" id="idEdit" name="id" >
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="nameEdit" class="col-form-label">Name:</label>
+                        <input type="text" class="form-control" id="nameEdit" name="name">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="capitalEdit" class="col-form-label">Capital:</label>
+                        <input type="text" class="form-control" id="capitalEdit" name="capital">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="updatedByEdit" class="col-form-label">Updated By:</label>
+                        <input type="text" class="form-control" id="updatedByEdit" name="updatedBy">
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">update</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<!--edit modal ends here -->
+<!-- delete modal start -->
+<div class="modal" tabindex="-1" id="delete_modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Deleting</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete the selected record ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <a href=""  class="btn btn-danger" id="confirm-del">Yes ,Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--delete modal end -->
+</body>
+</html>

@@ -6,6 +6,9 @@
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/week03/pom.xml" />
+        <option value="$PROJECT_DIR$/week04-DTO-concept/pom.xml" />
+        <option value="$PROJECT_DIR$/CreditApplicationSystem/pom.xml" />
+        <option value="$PROJECT_DIR$/data-ui-app/pom.xml" />
       </list>
     </option>
   </component>

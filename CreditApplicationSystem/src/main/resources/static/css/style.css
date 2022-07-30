@@ -1,0 +1,38 @@
+/*-------------------------------------------------
+if dark Mode is active make the modals in dark mode
+-------------------------------------------------*/
+.modal-content.dark-mode{
+    background-color: #20252a;
+    color: aliceblue;
+}
+.modal-content input.dark-mode{
+    background-color: #373f48;
+    color: aliceblue;
+}
+
+.table-header.dark-mode{
+    background-color: #435359;
+    color: aliceblue;
+}
+
+.modal-content.light-mode{
+    color: black;
+}
+.modal-content.light-mode #creditLimit{
+    color: black;
+}
+.modal-content input.light-mode{
+
+    color: black;
+}
+.table-header.light-mode{
+    background-color: #de7e7e;
+   color: black;
+}
+
+.modeSwitcher{
+    position: absolute;
+    right: 0px;
+    /*width: 150px;*/
+    padding: 10px;
+}
