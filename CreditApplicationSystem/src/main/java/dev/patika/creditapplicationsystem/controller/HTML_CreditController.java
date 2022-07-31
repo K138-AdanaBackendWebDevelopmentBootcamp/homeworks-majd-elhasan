@@ -22,7 +22,6 @@ public class HTML_CreditController {
     }
 
     @GetMapping("/ApplyForCredit")
-    //@Transactional(readOnly = true)
     public String askByIdentityNumber(@RequestParam long idCardNumber){
         service.askByIdentityNumber(idCardNumber);
         return "redirect:/users";

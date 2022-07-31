@@ -22,8 +22,8 @@ public class initializerRunner implements CommandLineRunner {
         if(userRepository.findAll().isEmpty()) {
             userRepository.save(User.builder().fullName("Meryem").identityNumber(99854771212L).phoneNumber(58964541214L).salary(6300).build());
             userRepository.save(User.builder().fullName("Mark").identityNumber(68789121514L).phoneNumber(65487487874L).salary(5310).build());
-            userRepository.save(User.builder().fullName("John").identityNumber(32528978411L).phoneNumber(91545448547L).salary(3040).build());
-            userRepository.save(User.builder().fullName("Muhammet").identityNumber(87965121127L).phoneNumber(75874545412L).salary(7500).build());
+            userRepository.save(User.builder().fullName("John").identityNumber(32528978412L).phoneNumber(91545448547L).salary(3040).build());
+            userRepository.save(User.builder().fullName("Muhammet").identityNumber(87965121126L).phoneNumber(75874545412L).salary(7500).build());
             userRepository.save(User.builder().fullName("Arnaf").identityNumber(98953321510L).phoneNumber(36598597944L).salary(2300).build());
             userRepository.save(User.builder().fullName("shikamaru").identityNumber(87421202016L).phoneNumber(94556654656L).salary(6500).build());
             userRepository.save(User.builder().fullName("shancai").identityNumber(36548745418L).phoneNumber(36594545454L).salary(4900).build());

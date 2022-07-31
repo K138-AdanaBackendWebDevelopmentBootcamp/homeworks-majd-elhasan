@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.kingsonthegenius</groupId>
-	<artifactId>data-ui-app</artifactId>
+	<artifactId>data_ui_app_demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>data-ui-app</name>
-	<description>data-ui-app</description>
+	<name>data_ui_app_demo</name>
+	<description>data_ui_app</description>
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
@@ -57,13 +58,16 @@
       <td th:text="${u.phoneNumber}"></td>
       <td th:text="${u.salary}"></td>
       <!-- th:href="@{/users/credit/(idCardNumber=${u.identityNumber})}" -->
-      <td><a th:href="@{/users/get_user/(id=${u.databaseId})}" class="btn btn-outline-secondary" id="credit-info-btn">Credit Info</a></td>
+      <td><a th:href="@{/users/get_user/(id=${u.databaseId})}" th:class="${u.credit_info!=null?'btn btn-secondary':'btn btn-outline-secondary'}" id="credit-info-btn">Credit Info</a></td>
       <td><a th:href="@{/users/get_user/(id=${u.databaseId})}" class="btn btn-outline-warning edit-btn">Edit</a></td>
       <!-- th:href="@{/users/delete_user/(id=${u.databaseId})}" -->
       <td><a th:href="@{/users/delete_user/(id=${u.databaseId})}" class="btn btn-outline-danger" id="delete-btn">Delete</a></td>
     </tr>
   </table>
 </div>
+<!-- testing... -->
+
+<!-- testing end -->
 <!-- save modal starts here -->
 <div class="modal fade" id="add_Modal" tabindex="-1" aria-labelledby="saveModalLabel" aria-hidden="true">
   <form th:action="@{/users/save_user}">
