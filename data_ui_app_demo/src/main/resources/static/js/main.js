@@ -5,7 +5,7 @@ $(document).ready(function (){
         event.preventDefault();
         console.log("worked !")
         const href = $(this).attr("href");
-        $.get(href,function(n,status){
+        $.get(href,function(n){  // in the video I watched on YouTube there was another parameter beside to n ,  it was (n,status) so at this date 2022/08/1 I didn't know about that
             $('#nameEdit').val(n.name);
             $('#capitalEdit').val(n.capital);
             $('#updatedByEdit').val(n.updatedBy);
