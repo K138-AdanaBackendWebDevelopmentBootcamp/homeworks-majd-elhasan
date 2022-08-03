@@ -51,6 +51,7 @@ public class UserService{
                 throw new AlreadyExistsException("a user with identity number " + user.getIdentityNumber() + " Already exists !");
         }
         else {
+            // here we get the user data with a database ID , throw the frontend side by form structure has hidden ID field
             System.out.println("****************************************************************\n" +
                     "the posted user does have Database ID ,so it's updating process\n" +
                     "****************************************************************");
@@ -67,18 +68,20 @@ public class UserService{
                 //I have to delete the Credit_info data from database  :)
                 //*********************************************************/
                 // let's discover what has changed !
-                if(theOldData.getSalary()!=user.getSalary() && theOldData.getCredit_info()!=null){
+                else if(theOldData.getSalary()!=user.getSalary() && theOldData.getCredit_info()!=null){
                     creditRepository.delete(theOldData.getCredit_info()); // I shouldn't say " delete(user.getCredit_info()" here cause the user posted object doesn't have Credit_info in it
                     // so I delete the credit object that related to theOldData object which it recently created by the reference of the user database ID .
+                    //throw new BudgetUpdatedInfo("This user's credit data have to be updated because of changing occurred in user's salary !");
                 }
             }else { // so no one uses the newly posted USER object's Identity number ,so since we define the credit score according to the Identity number we have to remove the old credit data that related to the old Identity number
                 // in this case let's remove the credit from the database.
                 if(theOldData.getCredit_info()!=null)
                     creditRepository.delete(theOldData.getCredit_info());
+                //throw new BudgetUpdatedInfo("This user's credit data have to be updated because of changing occurred in user's identity number !");
             }
         }
         // validation for user ID and throwing an exception for some reason :)
-        if(user.getIdentityNumber()%2==1) throw new Invalid_ID_NumberException("the user's ID number is NOT VALID number it must end with even number !  :) ");
+        if(user.getIdentityNumber()%2==1) throw new Invalid_ID_NumberException("the user's ID number is NOT VALID number it must end with even digit !    :)");
         return userRepository.save(user);
     }
 

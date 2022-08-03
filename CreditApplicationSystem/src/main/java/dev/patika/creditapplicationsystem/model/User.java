@@ -3,8 +3,10 @@ package dev.patika.creditapplicationsystem.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
 @Entity
@@ -13,6 +15,7 @@ import java.util.Objects;
 @ToString
 @AllArgsConstructor
 @Builder
+@Table(name = "_user_")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,9 +28,16 @@ public class User {
     // so here I shouldn't use @JsonIgnore annotation.
     private Credit credit_info;
 
+    @Range(min = 10000000000L,max = 99999999999L)
     private long identityNumber;
+
+    @NotBlank
     private String fullName;
+
+    @Range()
     private int salary;
+
+    @Range(min = 1000000000L ,max = 9999999999L)
     private long phoneNumber;
 
 

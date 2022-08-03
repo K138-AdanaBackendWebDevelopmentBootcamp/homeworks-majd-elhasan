@@ -1,10 +1,9 @@
-
 $(document).ready(function (){
     const checkbox = document.querySelector('.modeSwitcher #lightSwitch');
     !localStorage.getItem('dark-mode')?localStorage.setItem('dark-mode','true'):localStorage.getItem('dark-mode');
     // let mode = localStorage.getItem('dark-mode')==='true'?true:false ; // is the same as let mode = localStorage.getItem('dark-mode')==='true'
     document.querySelector('.modeSwitcher #lightSwitch').checked =localStorage.getItem('dark-mode') === 'true';
-    console.log(localStorage.getItem('dark-mode'));
+    //console.log(localStorage.getItem('dark-mode'));
     function dark_mode() {
         localStorage.setItem('dark-mode','true');
         $("body").addClass('bg-dark').removeClass('light-mode');
@@ -87,4 +86,15 @@ $(document).ready(function (){
     checkbox.addEventListener('change', function() {
         this.checked?dark_mode():light_mode();
     });
+
+    // exception modal function start
+    let exception_detector_oldState=false;
+    let exception_detector = Boolean($("#error_sensor").html());
+    let error_msg = $('#error_Msg').html();
+
+    if(exception_detector!==exception_detector_oldState && error_msg!==""){
+        exception_detector_oldState=exception_detector;
+        $('#exception_modal').modal("show");
+    }
+    // exception modal function end
 })

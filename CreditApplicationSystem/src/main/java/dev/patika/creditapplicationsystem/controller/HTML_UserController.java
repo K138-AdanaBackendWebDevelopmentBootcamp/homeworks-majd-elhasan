@@ -14,7 +14,8 @@ import java.util.List;
 @Controller
 @RequestMapping("/users")
 public class HTML_UserController {
-
+    public String excMsg;    // defined to be used in HTML view by methods in common
+    public boolean exc_changed_sensor; // this will change when the exception message changes
     private final UserService service;
     public HTML_UserController(UserService iUserService) {
         this.service = iUserService;
@@ -24,7 +25,10 @@ public class HTML_UserController {
     @Transactional(readOnly = true)
     public String getUsers(Model model){
         List<User> userList = service.getUsers();
+        model.addAttribute("excMsg",excMsg);
         model.addAttribute("users",userList);
+        model.addAttribute("excChanging_sensor",exc_changed_sensor);
+        excMsg="";
         return "users";
     }
     //  without this controller the app would go to the users' page with no bootstrap in it ,and that would cause a security problem .
@@ -40,32 +44,19 @@ public class HTML_UserController {
     }
 
 
-    @RequestMapping(value = "/update_user",method = {RequestMethod.PUT,RequestMethod.GET})
+    @RequestMapping(value = "/save_user",method = {RequestMethod.PUT,RequestMethod.GET,RequestMethod.POST})
     @Transactional
     public String updateUser( User user, Model model ) {
         try {
             service.saveUser(user);
-            user.setCredit_info(null);
         }catch (Invalid_ID_NumberException | AlreadyExistsException | BudgetUpdatedInfo e){
             model.addAttribute("error",e);
-            return "Invalid_data";
+            excMsg = e.getMessage();
+            exc_changed_sensor= !exc_changed_sensor;
+            //return "redirect:/users";//"Invalid_data"; //
         }
         return "redirect:/users";
     }
-
-
-    @RequestMapping(value = "/save_user",method = {RequestMethod.POST,RequestMethod.GET})
-    @Transactional
-    public String saveUser(User user ,Model model) {
-        try {
-            service.saveUser(user);
-        }catch (Invalid_ID_NumberException | AlreadyExistsException e){
-            model.addAttribute("error",e);
-            return "Invalid_data";
-        }
-        return "redirect:/users";
-    }
-
 
     @RequestMapping(value = "/delete_user",method ={ RequestMethod.DELETE,RequestMethod.GET})
     public String deleteUserByDatabaseId(@RequestParam(required = false) long id){
