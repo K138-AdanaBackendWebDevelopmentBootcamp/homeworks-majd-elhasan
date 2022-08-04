@@ -65,8 +65,6 @@
   </table>
 </div>
 
-<div th:text="${excChanging_sensor}" id="error_sensor" class="visually-hidden"></div>
-
 <!-- save modal starts here -->
 <div class="modal fade" id="add_Modal" tabindex="-1" aria-labelledby="saveModalLabel" aria-hidden="true">
   <form th:action="@{/users/save_user}">
@@ -79,22 +77,22 @@
         <div class="modal-body">
           <div class="mb-3">
             <label for="identityNumberAdd" class="col-form-label">Identity Number:</label>
-            <input type="text" class="form-control dark-mode " id="identityNumberAdd" name="identityNumber">
+            <input type="text" value="0" placeholder="must have 11 digit like : 12345678901" class="form-control dark-mode " id="identityNumberAdd" name="identityNumber">
           </div>
 
           <div class="mb-3">
             <label for="fullNameAdd" class="col-form-label">Full Name:</label>
-            <input type="text" class="form-control dark-mode" id="fullNameAdd" name="fullName">
+            <input type="text" value="name" placeholder="should have at least one character" class="form-control dark-mode" id="fullNameAdd" name="fullName">
           </div>
 
           <div class="mb-3">
             <label for="phoneNumberAdd" class="col-form-label">Phone Number:</label>
-            <input type="text" class="form-control dark-mode" id="phoneNumberAdd" name="phoneNumber">
+            <input type="text" value="0" placeholder="must have 10 digit like : 1234567890" class="form-control dark-mode" id="phoneNumberAdd" name="phoneNumber">
           </div>
 
           <div class="mb-3">
             <label for="salaryAdd" class="col-form-label">Salary:</label>
-            <input type="text" class="form-control dark-mode" id="salaryAdd" name="salary">
+            <input type="text" value="0" class="form-control dark-mode" id="salaryAdd" name="salary">
           </div>
 
 
@@ -218,11 +216,29 @@
   <div class="modal-dialog">
     <div class="modal-content dark-mode">
       <div class="modal-header">
-        <h5 class="modal-title ">Error</h5>
+        <h5 class="modal-title text-danger">Error</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <p th:text="${excMsg}" id="error_Msg"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--exception modal end -->
+<!-- warning modal start -->
+<div class="modal" tabindex="-1" id="warning_modal">
+  <div class="modal-dialog">
+    <div class="modal-content dark-mode">
+      <div class="modal-header">
+        <h5 class="modal-title text-warning">Warning</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p th:text="${BUI}" id="warning_Msg"></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>

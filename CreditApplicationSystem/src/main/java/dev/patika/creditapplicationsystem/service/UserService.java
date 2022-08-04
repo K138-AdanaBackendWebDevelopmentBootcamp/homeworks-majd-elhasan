@@ -1,14 +1,13 @@
 package dev.patika.creditapplicationsystem.service;
 
-import dev.patika.creditapplicationsystem.exception.AlreadyExistsException;
-import dev.patika.creditapplicationsystem.exception.BudgetUpdatedInfo;
-import dev.patika.creditapplicationsystem.exception.Invalid_ID_NumberException;
-import dev.patika.creditapplicationsystem.exception.NotFoundException;
+import dev.patika.creditapplicationsystem.exception.*;
 import dev.patika.creditapplicationsystem.model.User;
 import dev.patika.creditapplicationsystem.repository.CreditRepository;
 import dev.patika.creditapplicationsystem.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Objects;
+
 @Service
 public class UserService{
 
@@ -40,7 +39,8 @@ public class UserService{
     }
 
     
-    public User saveUser(User user) throws Invalid_ID_NumberException,AlreadyExistsException,BudgetUpdatedInfo{
+    public String saveUser(User user) {
+       String budgetUpdatedInfo = "";
         User foundUserByIdentityNumber = userRepository.getUserByIdentityNumber(user.getIdentityNumber());
         // the reason I set new user according to the Identity number not the database id is the newly posted user in saving process won't have a database id
         if(user.getDatabaseId()==null) {
@@ -72,17 +72,23 @@ public class UserService{
                     creditRepository.delete(theOldData.getCredit_info()); // I shouldn't say " delete(user.getCredit_info()" here cause the user posted object doesn't have Credit_info in it
                     // so I delete the credit object that related to theOldData object which it recently created by the reference of the user database ID .
                     //throw new BudgetUpdatedInfo("This user's credit data have to be updated because of changing occurred in user's salary !");
+                    budgetUpdatedInfo = "This user's credit data have to be updated because of changing occurred in user's salary !";
                 }
             }else { // so no one uses the newly posted USER object's Identity number ,so since we define the credit score according to the Identity number we have to remove the old credit data that related to the old Identity number
                 // in this case let's remove the credit from the database.
-                if(theOldData.getCredit_info()!=null)
+                if(theOldData.getCredit_info()!=null) {
                     creditRepository.delete(theOldData.getCredit_info());
-                //throw new BudgetUpdatedInfo("This user's credit data have to be updated because of changing occurred in user's identity number !");
+                    //throw new BudgetUpdatedInfo("This user's credit data have to be updated because of changing occurred in user's identity number !");
+                    budgetUpdatedInfo = "This user's credit data have to be updated because of changing occurred in user's identity number !";
+                }
             }
         }
         // validation for user ID and throwing an exception for some reason :)
         if(user.getIdentityNumber()%2==1) throw new Invalid_ID_NumberException("the user's ID number is NOT VALID number it must end with even digit !    :)");
-        return userRepository.save(user);
+
+        validation(user);
+        userRepository.save(user);
+        return budgetUpdatedInfo;
     }
 
     public User updateUserByDatabaseId(long id) throws NotFoundException {
@@ -94,5 +100,13 @@ public class UserService{
     public void deleteUserByDatabaseId(long id) throws NotFoundException{
         userRepository.findById(id).orElseThrow(()->new NotFoundException("a user with database Id: "+id+" Not found !"));
         userRepository.deleteById(id);
+    }
+    private void validation(User user){
+        if (user.getIdentityNumber()<10000000000L)
+            throw new IdentityNumber11digitException("Identity number must have 11 digit like : 12345678901");
+        if(Objects.equals(user.getFullName(), ""))
+            throw new FullnameEmptyException("Full name should have at least one character");
+        if (user.getPhoneNumber()<1000000000)
+            throw new PhoneNumber10digitException("Phone number must have 10 digit like : 1234567890");
     }
 }

@@ -88,13 +88,16 @@ $(document).ready(function (){
     });
 
     // exception modal function start
-    let exception_detector_oldState=false;
-    let exception_detector = Boolean($("#error_sensor").html());
     let error_msg = $('#error_Msg').html();
-
-    if(exception_detector!==exception_detector_oldState && error_msg!==""){
-        exception_detector_oldState=exception_detector;
+    if(error_msg!==""){
         $('#exception_modal').modal("show");
     }
     // exception modal function end
+
+    // warning modal start
+    let warningMsg = $("#warning_Msg").html();
+    if(warningMsg!=="") {
+        $('#warning_modal').modal("show");
+    }
+    // warning modal end
 })
