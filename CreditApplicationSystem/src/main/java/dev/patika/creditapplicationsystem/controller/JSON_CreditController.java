@@ -20,13 +20,22 @@ public class JSON_CreditController {
 
     @GetMapping("/ApplyForCredit/{idCardNumber}")
     //@Transactional(readOnly = true)
-    public ResponseEntity<Credit> askByIdentityNumber(@PathVariable long idCardNumber){
-       return ResponseEntity.ok(creditService.askByIdentityNumber(idCardNumber));
+    public ResponseEntity askByIdentityNumber(@PathVariable long idCardNumber){
+        try {
+            return ResponseEntity.ok(creditService.askByIdentityNumber(idCardNumber));
+        }catch (Exception e){
+            return ResponseEntity.ok().body(e.getMessage());
+        }
     }
 
     @GetMapping("/Credit/{idCardNumber}")
     @Transactional(readOnly = true)
-    public ResponseEntity<Credit> getCreditByUserIdentityNumber(@PathVariable long idCardNumber){
-        return ResponseEntity.ok(creditService.getCreditByUserIdentityNumber(idCardNumber));
+    public ResponseEntity getCreditByUserIdentityNumber(@PathVariable long idCardNumber){
+        try {
+            return ResponseEntity.ok(creditService.getCreditByUserIdentityNumber(idCardNumber));
+        }catch (Exception e){
+            return ResponseEntity.ok().body(e.getMessage());
+        }
+
     }
 }

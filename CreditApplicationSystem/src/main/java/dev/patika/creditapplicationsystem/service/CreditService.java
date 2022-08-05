@@ -1,5 +1,6 @@
 package dev.patika.creditapplicationsystem.service;
 
+import dev.patika.creditapplicationsystem.exception.CreditInfoNotFoundException;
 import dev.patika.creditapplicationsystem.exception.NotFoundException;
 import dev.patika.creditapplicationsystem.model.Credit;
 import dev.patika.creditapplicationsystem.model.State;
@@ -26,7 +27,7 @@ public class CreditService {
         Credit credit=defineCreditScore(identityNumber);
         credit.setUser(foundUser);
 
-        setStateAndLimit(credit);
+        setStateAndLimit(credit); // no need to return a value ,the credit object will be updated due to being immutable variable
 
         return creditRepository.save(credit);
 
@@ -35,6 +36,8 @@ public class CreditService {
         User foundUser = userRepository.getUserByIdentityNumber(identityNumber);
         if(foundUser==null)
             throw new NotFoundException("Not found user with id "+identityNumber);
+        if(foundUser.getCredit_info()==null)
+            throw new CreditInfoNotFoundException("the user with identity number : "+identityNumber + " doesn't have Credit information !");
         return foundUser.getCredit_info();
     }
     private Credit defineCreditScore(long identityNumber){
@@ -66,7 +69,7 @@ public class CreditService {
         }
         return credit;
     }
-    private Credit setStateAndLimit(Credit credit){
+    private void setStateAndLimit(Credit credit){
         /*
         calculations according to the credit score
          */
@@ -87,6 +90,5 @@ public class CreditService {
             credit.setState(State.success);
             credit.setCreditLimit(credit.getUser().getSalary()* credit.getCreditLimitMultiplier());
         }
-        return  credit;
     }
 }

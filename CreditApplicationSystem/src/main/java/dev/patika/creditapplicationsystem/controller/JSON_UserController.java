@@ -52,18 +52,18 @@ public class JSON_UserController {
     public ResponseEntity saveUser(@RequestBody User user){
         try {
             return  ResponseEntity.ok(service.saveUser(user));
-        }catch (Invalid_ID_NumberException | AlreadyExistsException e){
+        }catch (Exception e){
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
         }
 
     }
     @PutMapping("/users/{databaseId}")
     @Transactional
-    public ResponseEntity updateUserByDatabaseId(@PathVariable long databaseId){
+    public ResponseEntity updateUserByDatabaseId(@PathVariable long databaseId,@RequestBody User user){
         try {
-            return ResponseEntity.ok(service.updateUserByDatabaseId(databaseId));
-        }catch(NotFoundException e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+            return ResponseEntity.ok(service.updateUserByDatabaseId(databaseId,user));
+        }catch(Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 

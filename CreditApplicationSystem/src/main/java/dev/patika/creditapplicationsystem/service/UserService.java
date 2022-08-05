@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Service
 public class UserService{
-
+    public static String budgetUpdatedInfo= "";
     private final   UserRepository userRepository;
     private final CreditRepository creditRepository;
 
@@ -39,8 +39,7 @@ public class UserService{
     }
 
     
-    public String saveUser(User user) {
-       String budgetUpdatedInfo = "";
+    public User saveUser(User user) {
         User foundUserByIdentityNumber = userRepository.getUserByIdentityNumber(user.getIdentityNumber());
         // the reason I set new user according to the Identity number not the database id is the newly posted user in saving process won't have a database id
         if(user.getDatabaseId()==null) {
@@ -87,13 +86,18 @@ public class UserService{
         if(user.getIdentityNumber()%2==1) throw new Invalid_ID_NumberException("the user's ID number is NOT VALID number it must end with even digit !    :)");
 
         validation(user);
-        userRepository.save(user);
-        return budgetUpdatedInfo;
+        return userRepository.save(user);
     }
 
-    public User updateUserByDatabaseId(long id) throws NotFoundException {
-       User user = userRepository.findById(id).orElseThrow(()->new NotFoundException("a user with identity number: "+id+" Not found !"));
-        return userRepository.save(user);
+    public User updateUserByDatabaseId(long id,User user){
+       User found = userRepository.findById(id).orElseThrow(()->new NotFoundException("a user with identity number: "+id+" Not found !"));
+       validation(user);
+       found.setCredit_info(user.getCredit_info());
+       found.setFullName(user.getFullName());
+       found.setIdentityNumber(user.getIdentityNumber());
+       found.setSalary(user.getSalary());
+       found.setPhoneNumber(user.getPhoneNumber());
+       return userRepository.save(found); // no need to save because it will be saved automatically because of using set methods on data fetched from JPA repository
     }
 
     
@@ -102,11 +106,11 @@ public class UserService{
         userRepository.deleteById(id);
     }
     private void validation(User user){
-        if (user.getIdentityNumber()<10000000000L)
+        if (user.getIdentityNumber()<10000000000L || user.getIdentityNumber()>99999999999L)
             throw new IdentityNumber11digitException("Identity number must have 11 digit like : 12345678901");
         if(Objects.equals(user.getFullName(), ""))
             throw new FullnameEmptyException("Full name should have at least one character");
-        if (user.getPhoneNumber()<1000000000)
+        if (user.getPhoneNumber()<1000000000|| user.getPhoneNumber()>9999999999L)
             throw new PhoneNumber10digitException("Phone number must have 10 digit like : 1234567890");
     }
 }

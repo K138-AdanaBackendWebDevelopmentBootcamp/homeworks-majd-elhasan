@@ -4,12 +4,9 @@ import dev.patika.creditapplicationsystem.exception.*;
 import dev.patika.creditapplicationsystem.model.User;
 import dev.patika.creditapplicationsystem.service.UserService;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.UnexpectedRollbackException;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 @Controller
@@ -50,7 +47,8 @@ public class HTML_UserController {
     @Transactional
     public String saveUser( User user, Model model ) {
         try {
-            budgetUpdatedInfo = service.saveUser(user);
+            service.saveUser(user);
+            budgetUpdatedInfo = UserService.budgetUpdatedInfo;
         }catch (Invalid_ID_NumberException | AlreadyExistsException | IdentityNumber11digitException |
                 FullnameEmptyException | PhoneNumber10digitException | SalaryNotNumberException | NumberFormatException
                  e){
