@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/json")
+@RequestMapping("/json/users")
 public class JSON_UserController {
 
     private final UserService service;
@@ -21,14 +21,19 @@ public class JSON_UserController {
         this.service = service;
     }
 
-    @GetMapping("/users")
+    @GetMapping
     @Transactional(readOnly = true)
-    public ResponseEntity<List<User>> getUsers(){
-        return ResponseEntity.ok(service.getUsers());
+    public ResponseEntity getUsers(@RequestParam(required = false,defaultValue = "databaseId") String sortBy,@RequestParam(required = false,defaultValue = "true") Boolean ascending){
+        try {
+            return ResponseEntity.ok(service.getUsersSorted(sortBy, ascending));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+
     }
 
 
-    @GetMapping("/users/Database_ID/{DatabaseId}")
+    @GetMapping("/Database_ID/{DatabaseId}")
     @Transactional(readOnly = true)
     public ResponseEntity getUserByDatabaseId(@PathVariable long DatabaseId){
         try {
@@ -37,7 +42,7 @@ public class JSON_UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
-    @GetMapping("/users/National_ID/{IdCardNumber}")
+    @GetMapping("/National_ID/{IdCardNumber}")
     @Transactional(readOnly = true)
     public ResponseEntity getUserByIdentityNumber(@PathVariable long IdCardNumber){
         try {
@@ -47,7 +52,7 @@ public class JSON_UserController {
         }
 
     }
-    @PostMapping("/users")
+    @PostMapping
     @Transactional
     public ResponseEntity saveUser(@RequestBody User user){
         try {
@@ -57,7 +62,7 @@ public class JSON_UserController {
         }
 
     }
-    @PutMapping("/users/{databaseId}")
+    @PutMapping("/{databaseId}")
     @Transactional
     public ResponseEntity updateUserByDatabaseId(@PathVariable long databaseId,@RequestBody User user){
         try {
@@ -67,7 +72,7 @@ public class JSON_UserController {
         }
     }
 
-    @DeleteMapping("/users/{databaseId}")
+    @DeleteMapping("/{databaseId}")
     @Transactional
     public ResponseEntity deleteUserByDatabaseId(@PathVariable long  databaseId){
         try{

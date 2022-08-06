@@ -43,31 +43,27 @@
   </button>
   <table class="table">
     <tr class="table-header dark-mode">
-      <th>Id</th>
-      <th>Full Name</th>
-      <th>Phone Number</th>
-      <th>Salary</th>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th ><a sortBy='identityNumber' id="identityNumber_colTitle">ID Number</a></th>
+      <th> <a sortBy='fullName' id="fullName_colTitle">Full Name</a></th>
+      <th> <a sortBy='phoneNumber' id="phoneNumber_colTitle">Phone Number</a></th>
+      <th> <a sortBy='salary' id="salary_colTitle">Salary</a></th>
+      <th colspan="3"><span id="sorted_As"></span><a sortBy='databaseId' id="sortByDate">Sort By Date</a></th>
     </tr>
     <tr  th:each="u : ${users}" class="table-striped table-dark dynamic-table">
       <td th:text="${u.identityNumber}"></td>
       <td th:text="${u.fullName}"></td>
       <td th:text="${u.phoneNumber}"></td>
       <td th:text="${u.salary}"></td>
-      <!-- th:href="@{/users/credit/(idCardNumber=${u.identityNumber})}" -->
-      <td><a th:href="@{/users/get_user/(id=${u.databaseId})}" th:class="${u.credit_info!=null?'btn btn-secondary':'btn btn-outline-secondary'}" id="credit-info-btn">Credit Info</a></td>
-      <td><a th:href="@{/users/get_user/(id=${u.databaseId})}" class="btn btn-outline-warning edit-btn">Edit</a></td>
-      <!-- th:href="@{/users/delete_user/(id=${u.databaseId})}" -->
-      <td><a th:href="@{/users/delete_user/(id=${u.databaseId})}" class="btn btn-outline-danger" id="delete-btn">Delete</a></td>
+      <td style="width: 120px"><a th:href="@{/users/get_user/(id=${u.databaseId})}" th:class="${u.credit_info!=null?'btn btn-secondary':'btn btn-outline-secondary'}" id="credit-info-btn">Credit Info</a></td>
+      <td style="width: 70px"><a th:href="@{/users/get_user/(id=${u.databaseId})}" class="btn btn-outline-warning edit-btn">Edit</a></td>
+      <td style="width: 80px"><a th:href="@{/users/delete_user/(id=${u.databaseId})}" class="btn btn-outline-danger" id="delete-btn">Delete</a></td>
     </tr>
   </table>
 </div>
 
 <!-- save modal starts here -->
 <div class="modal fade" id="add_Modal" tabindex="-1" aria-labelledby="saveModalLabel" aria-hidden="true">
-  <form th:action="@{/users/save_user}">
+  <form action="/users/save_user" id="save_form">
     <div class="modal-dialog">
       <div class="modal-content dark-mode">
         <div class="modal-header">
@@ -77,22 +73,26 @@
         <div class="modal-body">
           <div class="mb-3">
             <label for="identityNumberAdd" class="col-form-label">Identity Number:</label>
-            <input type="text" value="0" placeholder="must have 11 digit like : 12345678901" class="form-control dark-mode " id="identityNumberAdd" name="identityNumber">
+            <input type="text" placeholder="must have 11 digit like : 12345678901" class="form-control dark-mode " id="identityNumberAdd" name="identityNumber">
+            <small></small>
           </div>
 
           <div class="mb-3">
             <label for="fullNameAdd" class="col-form-label">Full Name:</label>
-            <input type="text" value="name" placeholder="should have at least one character" class="form-control dark-mode" id="fullNameAdd" name="fullName">
+            <input type="text"  placeholder="should have at least one character" class="form-control dark-mode" id="fullNameAdd" name="fullName">
+            <small></small>
           </div>
 
           <div class="mb-3">
             <label for="phoneNumberAdd" class="col-form-label">Phone Number:</label>
-            <input type="text" value="0" placeholder="must have 10 digit like : 1234567890" class="form-control dark-mode" id="phoneNumberAdd" name="phoneNumber">
+            <input type="text" placeholder="must have 10 digit like : 1234567890" class="form-control dark-mode" id="phoneNumberAdd" name="phoneNumber">
+            <small></small>
           </div>
 
           <div class="mb-3">
             <label for="salaryAdd" class="col-form-label">Salary:</label>
-            <input type="text" value="0" class="form-control dark-mode" id="salaryAdd" name="salary">
+            <input type="text" class="form-control dark-mode" id="salaryAdd" name="salary">
+            <small></small>
           </div>
 
 
@@ -108,7 +108,7 @@
 <!--save modal ends here -->
 <!-- edit modal starts here -->
 <div class="modal fade" id="edit_Modal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-  <form th:action="@{/users/save_user}" > <!-- updating -->
+  <form th:action="@{/users/save_user}" id="update_form"> <!-- updating -->
     <div class="modal-dialog">
       <div class="modal-content dark-mode">
         <div class="modal-header">
@@ -123,22 +123,26 @@
 
           <div class="mb-3">
             <label for="identityNumberEdit" class="col-form-label">Identity Number:</label>
-            <input type="text" class="form-control dark-mode" id="identityNumberEdit" name="identityNumber">
+            <input type="text" placeholder="must have 11 digit like : 12345678901" class="form-control dark-mode" id="identityNumberEdit" name="identityNumber">
+            <small></small>
           </div>
 
           <div class="mb-3">
             <label for="fullNameEdit" class="col-form-label">Full Name:</label>
-            <input type="text" class="form-control dark-mode" id="fullNameEdit" name="fullName">
+            <input type="text" placeholder="should have at least one character" class="form-control dark-mode" id="fullNameEdit" name="fullName">
+            <small></small>
           </div>
 
           <div class="mb-3">
             <label for="phoneNumberEdit" class="col-form-label">Phone Number:</label>
-            <input type="text" class="form-control dark-mode" id="phoneNumberEdit" name="phoneNumber">
+            <input type="text" placeholder="must have 10 digit like : 1234567890" class="form-control dark-mode" id="phoneNumberEdit" name="phoneNumber">
+            <small></small>
           </div>
 
           <div class="mb-3">
             <label for="salaryEdit" class="col-form-label">Salary:</label>
             <input type="text" class="form-control dark-mode" id="salaryEdit" name="salary">
+            <small></small>
           </div>
 
         </div>

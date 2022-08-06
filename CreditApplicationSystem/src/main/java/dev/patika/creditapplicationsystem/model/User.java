@@ -1,6 +1,5 @@
 package dev.patika.creditapplicationsystem.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.Hibernate;
 import org.hibernate.validator.constraints.Range;

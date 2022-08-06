@@ -21,8 +21,8 @@ public class HTML_UserController {
 
     @GetMapping(value = "")
     @Transactional(readOnly = true)
-    public String getUsers(Model model){
-        List<User> userList = service.getUsers();
+    public String getUsers(Model model,@RequestParam(required = false,defaultValue = "databaseId") String sortBy,@RequestParam(required = false,defaultValue = "true") Boolean ascending){
+        List<User> userList = service.getUsersSorted(sortBy, ascending);
         model.addAttribute("excMsg",excMsg);
         model.addAttribute("BUI",budgetUpdatedInfo);
         model.addAttribute("users",userList);
@@ -30,6 +30,7 @@ public class HTML_UserController {
         excMsg="";
         return "users";
     }
+
     //  without this controller the app would go to the users' page with no bootstrap in it ,and that would cause a security problem .
     @GetMapping(value = "/")
     public String fallback(){
@@ -49,8 +50,7 @@ public class HTML_UserController {
         try {
             service.saveUser(user);
             budgetUpdatedInfo = UserService.budgetUpdatedInfo;
-        }catch (Invalid_ID_NumberException | AlreadyExistsException | IdentityNumber11digitException |
-                FullnameEmptyException | PhoneNumber10digitException | SalaryNotNumberException | NumberFormatException
+        }catch (Exception
                  e){
             model.addAttribute("error",e);
             excMsg = e.getMessage();

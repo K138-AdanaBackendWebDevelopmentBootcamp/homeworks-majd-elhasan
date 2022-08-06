@@ -14,6 +14,9 @@ if dark Mode is active make the modals in dark mode
     background-color: #435359;
     color: aliceblue;
 }
+.table-header.dark-mode  #sorted_As{
+    color: skyblue;
+}
 
 .modal-content.light-mode{
     color: black;
@@ -29,10 +32,13 @@ if dark Mode is active make the modals in dark mode
     background-color: #de7e7e;
    color: black;
 }
+.table-header.light-mode  #sorted_As{
+    color: darkred;
+}
 
 .modeSwitcher{
     position: absolute;
-    right: 0px;
+    right: 0;
     /*width: 150px;*/
     padding: 10px;
 }

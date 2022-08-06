@@ -5,8 +5,8 @@
       <option name="myValues">
         <value>
           <list size="2">
-            <item index="0" class="java.lang.String" itemvalue="dta-target" />
-            <item index="1" class="java.lang.String" itemvalue="method" />
+            <item index="0" class="java.lang.String" itemvalue="method" />
+            <item index="1" class="java.lang.String" itemvalue="sortby" />
           </list>
         </value>
       </option>

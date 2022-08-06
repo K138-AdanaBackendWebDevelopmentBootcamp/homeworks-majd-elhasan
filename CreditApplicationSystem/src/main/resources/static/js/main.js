@@ -31,10 +31,8 @@ $(document).ready(function (){
     $(".table .edit-btn").on("click",function (event){
         $('#edit_Modal').modal('show');
         event.preventDefault();
-        console.log("worked !")
         const href = $(this).attr("href");
         $.get(href,function(u){
-            console.log(u.identityNumber);
             $('#identityNumberEdit').val(u.identityNumber);
             $('#fullNameEdit').val(u.fullName);
             $('#phoneNumberEdit').val(u.phoneNumber);
@@ -100,4 +98,138 @@ $(document).ready(function (){
         $('#warning_modal').modal("show");
     }
     // warning modal end
+
+    // __sort by__ method
+    !localStorage.getItem('ascending_sorting')?localStorage.setItem('ascending_sorting','true'):null;
+    let ascending = localStorage.getItem('ascending_sorting');
+
+    !localStorage.getItem('sortByDate')?localStorage.setItem('sortByDate','f'):null;
+
+    const arr = [  // the table header titles' tags
+        $('#identityNumber_colTitle'),
+        $('#fullName_colTitle'),
+        $('#phoneNumber_colTitle'),
+        $('#salary_colTitle'),
+        $('#sortByDate')
+    ]
+
+    $(arr).each(function() {
+        $(this).on('click', function(e) {
+            const str = $(this).attr('sortBy')?$(this).attr('sortBy'):"databaseId";
+            let href = "users?sortBy="+str+"&&ascending="+ascending;
+            localStorage.setItem('ascending_sorting',ascending==='true'?'false':'true');
+            window.location.replace(href);
+            if($(this).attr('sortBy')==="databaseId"){
+                localStorage.setItem('sortByDate','t');
+            }else{
+                localStorage.setItem('sortByDate','f');
+            }
+        });
+    });
 })
+
+if(localStorage.getItem('sortByDate')==="t"){
+    $('#sortByDate').html(localStorage.getItem('ascending_sorting')==="true"?"Newest to oldest":"Oldest to newest");
+    $('#sorted_As').html('sorted as : ');
+}
+
+const save_form = document.querySelector('#save_form');
+const update_form = document.querySelector('#update_form');
+
+
+submit_form =(form)=>{
+    form.addEventListener('submit',event=>{
+        // stop form submission
+        event.preventDefault();
+        const identityNumberElement = form.elements[name='identityNumber'];
+        const fullNameElement = form.elements[name='fullName'];
+        const phoneNumberElement = form.elements[name='phoneNumber'];
+        const salaryElement = form.elements[name='salary'];
+
+        // validate the form
+        let fullNameValid = validateFullName(fullNameElement,FULL_NAME_REQUIRED,FULL_NAME_INVALID);
+        let identityNumberValid = validateIdentityNumber(identityNumberElement,IDENTITY_NUMBER_REQUIRED,IDENTITY_NUMBER_INVALID);
+        let phoneNumberValid = validatePhoneNumber(phoneNumberElement,PHONE_NUMBER_REQUIRED,PHONE_NUMBER_INVALID);
+        let salaryValid = validateSalary(salaryElement,SALARY_INVALID);
+
+        if(fullNameValid && identityNumberValid && phoneNumberValid && salaryValid){
+            if(salaryElement.value==="")
+                salaryElement.value=0;
+            form.submit();
+        }
+    })
+}
+submit_form(update_form);
+submit_form(save_form);
+
+
+// show a message with a type of the input
+function showMessage(input, message, type) {
+    // get the <small> element and set the message
+    const msg = input.parentNode.querySelector("small");
+    msg.innerText = message;
+
+
+    return type;
+}
+function showError(input, message) {
+    return showMessage(input, message, false);
+}
+
+function showSuccess(input) {
+    return showMessage(input, "", true);
+}
+function hasValue(input, message) {
+    if (input.value.trim() === "") {
+        return showError(input, message);
+    }
+    return showSuccess(input);
+}
+const IDENTITY_NUMBER_REQUIRED = "Please enter an identity number";
+const FULL_NAME_REQUIRED = "Please enter a name";
+const PHONE_NUMBER_REQUIRED = "Please enter a phone number";
+const SALARY_REQUIRED = "Please enter a salary";
+
+const IDENTITY_NUMBER_INVALID = "identity number must have 11 digit in it ,not start with zero ,and accept only digital value";
+const FULL_NAME_INVALID = "full name must contain at least one character";
+const PHONE_NUMBER_INVALID = "phone number must have 10 digit in it ,not start with zero ,and accept only digital value";
+const SALARY_INVALID = "accept only digital value";
+
+function validateIdentityNumber(input, requiredMsg, invalidMsg) {
+    // check if the value is not empty
+    if (!hasValue(input, requiredMsg)) {
+        return false;
+    }
+    if(!input.value.match(/^(?!(0))\d{11}$/))
+        return showError(input, invalidMsg);
+
+    return true;
+}
+function validateFullName(input, requiredMsg, invalidMsg) {
+    // check if the value is not empty
+    if (!hasValue(input, requiredMsg)) {
+        return false;
+    }
+    if(input.value.trim()==="")
+        return showError(input, invalidMsg);
+
+    return true;
+}
+function validatePhoneNumber(input, requiredMsg, invalidMsg) {
+    // check if the value is not empty
+    if (!hasValue(input, requiredMsg)) {
+        return false;
+    }
+    if(!input.value.match(/^(?!(0))\d{10}$/))
+        return showError(input, invalidMsg);
+
+    return true;
+}
+function validateSalary(input, invalidMsg) {
+    // if the value is empty return 0 no need to check
+
+    if(!(input.value.match(/^\d+$/) || input.value===""))
+        return showError(input, invalidMsg);
+
+    return true;
+}

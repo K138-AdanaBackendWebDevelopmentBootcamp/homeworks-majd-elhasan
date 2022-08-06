@@ -4,6 +4,7 @@ import dev.patika.creditapplicationsystem.exception.*;
 import dev.patika.creditapplicationsystem.model.User;
 import dev.patika.creditapplicationsystem.repository.CreditRepository;
 import dev.patika.creditapplicationsystem.repository.UserRepository;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Objects;
@@ -13,6 +14,7 @@ public class UserService{
     public static String budgetUpdatedInfo= "";
     private final   UserRepository userRepository;
     private final CreditRepository creditRepository;
+    List<User> userList;
 
     public UserService(UserRepository userRepository, CreditRepository creditRepository) {
         this.userRepository = userRepository;
@@ -21,6 +23,20 @@ public class UserService{
 
     public List<User> getUsers() {
         return userRepository.findAll();
+    }
+    public List<User> getUsersSorted(String sortBy,Boolean direction){
+        switch (sortBy){
+            case "fullName":
+            case "identityNumber":
+            case "salary":
+            case"phoneNumber" :
+            case"databaseId" :
+                this.userList = userRepository.findAll(Sort.by(direction?Sort.Direction.ASC:Sort.Direction.DESC,sortBy));
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + sortBy);
+        }
+        return userList;
     }
 
     
@@ -60,7 +76,7 @@ public class UserService{
             // else if the IDs are NOT the same that means that the second possibility occurs [another user has the same Identity number that we are trying to assign to the current user]
             User theOldData = userRepository.findById(user.getDatabaseId()).get();
             if (foundUserByIdentityNumber != null) {  // there is someone uses the Identity number perhaps  the posted user uses it (and that happens when we don't change theirs) , perhaps another user uses it.
-                if (user.getDatabaseId() != foundUserByIdentityNumber.getDatabaseId()) // the second possibility occurs here ...  the other one uses the Identity number not the posted USER.
+                if (!Objects.equals(user.getDatabaseId(), foundUserByIdentityNumber.getDatabaseId())) // the second possibility occurs here ...  the other one uses the Identity number not the posted USER.
                     throw new AlreadyExistsException("a user with identity number " + user.getIdentityNumber() + " Already exists !");
                 // ↓  here we'll handle the posted USER data
                 //*********************************************************
