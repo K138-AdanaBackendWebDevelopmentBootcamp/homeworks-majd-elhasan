@@ -14,5 +14,5 @@ and to simulate the reality I also made the ID numbers that end with odd digit I
 
 the windows are like :
 
-![The main page](images/MainPage.png)
+![The main page](images/MainPageSorting.jpg)
 ![The modals](images/pop_ups.png)

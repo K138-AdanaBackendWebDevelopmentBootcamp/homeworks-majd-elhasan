@@ -16,5 +16,5 @@ and to simulate the reality I also made the ID numbers that end with odd digit I
 
 the windows are like :
 
-![The main page](CreditApplicationSystem/images/MainPage.png)
+![The main page](CreditApplicationSystem/images/MainPageSorting.jpg)
 ![The modals](CreditApplicationSystem/images/pop_ups.png)
