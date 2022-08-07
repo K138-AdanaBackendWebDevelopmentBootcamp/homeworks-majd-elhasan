@@ -99,7 +99,6 @@ public class UserService{
             }
         }
         // validation for user ID and throwing an exception for some reason :)
-        if(user.getIdentityNumber()%2==1) throw new Invalid_ID_NumberException("the user's ID number is NOT VALID number it must end with even digit !    :)");
 
         validation(user);
         return userRepository.save(user);
@@ -113,6 +112,8 @@ public class UserService{
        found.setIdentityNumber(user.getIdentityNumber());
        found.setSalary(user.getSalary());
        found.setPhoneNumber(user.getPhoneNumber());
+       if(userRepository.getUserByIdentityNumber(user.getIdentityNumber()).getDatabaseId()!=found.getDatabaseId())
+           throw new AlreadyExistsException("a user with identity number " + user.getIdentityNumber() + " Already exists !");
        return userRepository.save(found); // no need to save because it will be saved automatically because of using set methods on data fetched from JPA repository
     }
 
@@ -122,6 +123,8 @@ public class UserService{
         userRepository.deleteById(id);
     }
     private void validation(User user){
+        if(user.getIdentityNumber()%2==1) throw new Invalid_ID_NumberException("the user's ID number is NOT VALID number it must end with even digit !    :)");
+
         if (user.getIdentityNumber()<10000000000L || user.getIdentityNumber()>99999999999L)
             throw new IdentityNumber11digitException("Identity number must have 11 digit like : 12345678901");
         if(Objects.equals(user.getFullName(), ""))
