@@ -98,8 +98,8 @@ public class UserService{
                 }
             }
         }
-        // validation for user ID and throwing an exception for some reason :)
 
+        // throws Exception when we're not using validation in javascript or thymeleaf
         validation(user);
         return userRepository.save(user);
     }
@@ -123,6 +123,7 @@ public class UserService{
         userRepository.deleteById(id);
     }
     private void validation(User user){
+        // validation for user ID and throwing an exception for some reason :)
         if(user.getIdentityNumber()%2==1) throw new Invalid_ID_NumberException("the user's ID number is NOT VALID number it must end with even digit !    :)");
 
         if (user.getIdentityNumber()<10000000000L || user.getIdentityNumber()>99999999999L)

@@ -37,11 +37,6 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
             <version>3.0.0</version>
@@ -54,7 +49,7 @@
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
-            <version>2.9.2</version>
+            <version>3.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.thymeleaf</groupId>
@@ -67,7 +62,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
-            <version>2.7.0</version>
+            <version>2.7.2</version>
         </dependency>
         <dependency>
             <groupId>org.webjars</groupId>
@@ -78,6 +73,12 @@
             <groupId>org.webjars</groupId>
             <artifactId>jquery</artifactId>
             <version>3.6.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.7.0</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
@@ -94,6 +95,7 @@
             <version>2.7.2</version>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
 
     <build>
@@ -101,6 +103,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${project.parent.version}</version>
                 <configuration>
                     <excludes>
                         <exclude>
