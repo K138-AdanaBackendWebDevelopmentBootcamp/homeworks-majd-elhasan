@@ -1,7 +1,5 @@
 package dev.patika.creditapplicationsystem.controller;
 
-import dev.patika.creditapplicationsystem.exception.AlreadyExistsException;
-import dev.patika.creditapplicationsystem.exception.Invalid_ID_NumberException;
 import dev.patika.creditapplicationsystem.exception.NotFoundException;
 import dev.patika.creditapplicationsystem.model.User;
 import dev.patika.creditapplicationsystem.service.UserService;
@@ -10,7 +8,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Objects;
+
+import static java.lang.Boolean.parseBoolean;
+
 
 @RestController
 @RequestMapping("/json/users")
@@ -23,9 +24,11 @@ public class JSON_UserController {
 
     @GetMapping
     @Transactional(readOnly = true)
-    public ResponseEntity getUsers(@RequestParam(required = false,defaultValue = "databaseId") String sortBy,@RequestParam(required = false,defaultValue = "true") Boolean ascending){
+    public ResponseEntity getUsers(@RequestParam(required = false,defaultValue = "databaseId") String sortBy,@RequestParam(required = false,defaultValue = "true") String ascending){
         try {
-            return ResponseEntity.ok(service.getUsersSorted(sortBy, ascending));
+            if(!Objects.equals(ascending, "true") && !Objects.equals(ascending, "false"))
+            { throw new IllegalStateException("Unexpected value: " + ascending);}
+            return ResponseEntity.ok(service.getUsersSorted(sortBy,parseBoolean(ascending)));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
