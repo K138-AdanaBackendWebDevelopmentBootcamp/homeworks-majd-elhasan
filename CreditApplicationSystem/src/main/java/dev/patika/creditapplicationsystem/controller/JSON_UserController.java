@@ -24,11 +24,9 @@ public class JSON_UserController {
 
     @GetMapping
     @Transactional(readOnly = true)
-    public ResponseEntity getUsers(@RequestParam(required = false,defaultValue = "databaseId") String sortBy,@RequestParam(required = false,defaultValue = "true") String ascending){
+    public ResponseEntity getUsers(@RequestParam(required = false,defaultValue = "databaseId") String sortBy,@RequestParam(required = false,defaultValue = "true") Boolean ascending){
         try {
-            if(!Objects.equals(ascending, "true") && !Objects.equals(ascending, "false"))
-            { throw new IllegalStateException("Unexpected value: " + ascending);}
-            return ResponseEntity.ok(service.getUsersSorted(sortBy,parseBoolean(ascending)));
+            return ResponseEntity.ok(service.getUsersSorted(sortBy, ascending));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
