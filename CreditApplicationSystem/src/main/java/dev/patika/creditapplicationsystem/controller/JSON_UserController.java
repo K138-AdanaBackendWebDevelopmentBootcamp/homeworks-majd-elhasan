@@ -8,11 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Objects;
-
-import static java.lang.Boolean.parseBoolean;
-
-
 @RestController
 @RequestMapping("/json/users")
 public class JSON_UserController {
@@ -24,9 +19,11 @@ public class JSON_UserController {
 
     @GetMapping
     @Transactional(readOnly = true)
-    public ResponseEntity getUsers(@RequestParam(required = false,defaultValue = "databaseId") String sortBy,@RequestParam(required = false,defaultValue = "true") Boolean ascending){
+    public ResponseEntity getUsers(@RequestParam(required = false,defaultValue = "databaseId") String sortBy,@RequestParam(required = false,defaultValue = "true") String ascending){
         try {
-            return ResponseEntity.ok(service.getUsersSorted(sortBy, ascending));
+            if(!(ascending.equalsIgnoreCase("true")||ascending.equalsIgnoreCase("false")))
+                throw new IllegalStateException("Unexpected value: " + ascending);
+            return ResponseEntity.ok(service.getUsersSorted(sortBy,Boolean.parseBoolean(ascending)));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
