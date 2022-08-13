@@ -1,7 +1,5 @@
 package dev.patika.creditapplicationsystem.controller;
 
-import dev.patika.creditapplicationsystem.exception.AlreadyExistsException;
-import dev.patika.creditapplicationsystem.exception.Invalid_ID_NumberException;
 import dev.patika.creditapplicationsystem.exception.NotFoundException;
 import dev.patika.creditapplicationsystem.model.User;
 import dev.patika.creditapplicationsystem.service.UserService;
@@ -9,8 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/json/users")
